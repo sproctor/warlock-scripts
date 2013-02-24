@@ -1,0 +1,25 @@
+if_1 goto START
+echo Usage: collect <type of item>
+exit
+
+START:
+CHECKEXP:
+	getcomponent outdoorsmanship exp outdoorsmanship
+	getcomponent perception exp perception
+	if %outdoorsmanship contains "mind lock" && %perception contains "mind lock" then goto WAITEXP
+DOCOLLECT:
+	match KICK You manage to collect
+	match CHECKEXP You forage around
+	put collect %1
+	matchwait
+KICKPAUSE:
+	pause
+KICK:
+	match CHECKEXP You take a step back
+	match CHECKEXP I could not find
+	match KICKPAUSE ...wait
+	put kick pile
+	matchwait
+WAITEXP:
+	pause 300
+	goto CHECKEXP
