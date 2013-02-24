@@ -4998,91 +4998,15 @@ WAIT_FERRY:
 	match QUIT [You're
 	matchwait
 
-APP_FERRY_PAUSE:
-pause
 APP_FERRY:
+counter set 0
+APP_FERRY_CONT:
 if %arrived = 1 then goto OFF_FERRY
-	match APP_POUCH_F Appraise what?
-	matchre APP_POUCH_F /roundtime|inside something|can't appraise/i
-	match APP_FERRY_PAUSE ...wait
-	match APP_FERRY_PAUSE type ahead
-put app my %zTapp1 careful
-	match QUIT [You're
-	matchwait
-
-APP_POUCH_F_PAUSE:
-pause
-APP_POUCH_F:
+gosub APP_FUN %zTapp1
 if %arrived = 1 then goto OFF_FERRY
-	match APP_BUN_F Appraise what?
-	matchre APP_BUN_F /roundtime|inside something|can't appraise/i
-	match APP_POUCH_F_PAUSE ...wait
-	match APP_POUCH_F_PAUSE type ahead
-put app my %zTapp2 careful
-	match QUIT [You're
-	matchwait
-
-APP_BUN_F_PAUSE:
-pause
-APP_BUN_F:
-if %arrived = 1 then goto OFF_FERRY
-	match APP_POUCH1_F Appraise what?
-	matchre APP_POUCH1_F /roundtime|inside something|can't appraise/i
-	match APP_BUN_F_PAUSE ...wait
-	match APP_BUN_F_PAUSE type ahead
-put app my %zTapp1 careful
-	match QUIT [You're
-	matchwait
-
-
-APP_POUCH1_F_PAUSE:
-pause
-APP_POUCH1_F:
-if %arrived = 1 then goto OFF_FERRY
-	match APP_BUN1_F Appraise what?
-	matchre APP_BUN1_F /roundtime|inside something|can't appraise/i
-	match APP_POUCH1_F_PAUSE ...wait
-	match APP_POUCH1_F_PAUSE type ahead
-put app my %zTapp2 careful
-	match QUIT [You're
-	matchwait
-
-APP_BUN1_F_PAUSE:
-pause
-APP_BUN1_F:
-if %arrived = 1 then goto OFF_FERRY
-	match FERRY_CLOSE Appraise what?
-	matchre FERRY_CLOSE /roundtime|inside something|can't appraise/i
-	match APP_BUN1_F_PAUSE ...wait
-	match APP_BUN1_F_PAUSE type ahead
-put app my %zTapp1 careful
-	match QUIT [You're
-	matchwait
-
-
-APP_POUCH2_F_PAUSE:
-pause
-APP_POUCH2_F:
-if %arrived = 1 then goto OFF_FERRY
-	match APP_BUN2_F Appraise what?
-	matchre APP_BUN2_F /roundtime|inside something|can't appraise/i
-	match APP_POUCH2_F_PAUSE ...wait
-	match APP_POUCH2_F_PAUSE type ahead
-put app my %zTapp2 careful
-	match QUIT [You're
-	matchwait
-
-APP_BUN2_F_PAUSE:
-pause
-APP_BUN2_F:
-if %arrived = 1 then goto OFF_FERRY
-	match FERRY_CLOSE Appraise what?
-	matchre FERRY_CLOSE /roundtime|inside something|can't appraise/i
-	match APP_BUN2_F_PAUSE ...wait
-	match APP_BUN2_F_PAUSE type ahead
-put app my %zTapp1 careful
-	match QUIT [You're
-	matchwait
+gosub APP_FUN %zTapp2
+counter add 1
+if %c < 3 then goto APP_FERRY_CONT
 
 FERRY_CLOSE_PAUSE:
 pause
@@ -5958,56 +5882,8 @@ CON_STOW_PAUSE_LETH:
 pause
 CON_STOW_LETH:
 IF_1 pause 5
-#put rem my %zTapp1
-#wait
-put get my %zTapp1
-wait
-put open my %zTapp1
-wait
-	match APP1_DONE_LETH Appraise what?
-	matchre APP1_DONE_LETH /roundtime|inside something|can't appraise/i
-	match CON_STOW_PAUSE_LETH ...wait
-	match CON_STOW_PAUSE_LETH type ahead
-put app my %zTapp1 careful
-	match QUIT [You're
-	matchwait
-
-APP1_DONE_LETH:
-pause
-put close my %zTapp1
-wait
-put wear my %zTapp1
-wait
-put stow my %zTapp1
-wait
-#put rem my %zTapp2
-#wait
-put get my %zTapp2
-wait
-put open my %zTapp2
-wait
-
-
-APP2_PAUSE_LETH:
-pause
-APP2_LETH:
-	match APP2_DONE_LETH Appraise what?
-	matchre APP2_DONE_LETH /roundtime|inside something|can't appraise/i
-	match APP2_PAUSE_LETH ...wait
-	match APP2_PAUSE_LETH type ahead
-put app my %zTapp2 careful
-	match QUIT [You're
-	matchwait
-
-APP2_DONE_LETH:
-pause
-put close my %zTapp2
-wait
-put wear my %zTapp2
-wait
-put stow my %zTapp2
-wait
-goto APP_DONE_LETH
+gosub APP_FUN %zTapp1
+gosub APP_FUN %zTapp2
 
 APP_DONE_PAUSE_LETH:
 pause
@@ -11499,124 +11375,12 @@ put stow my contract
 
 CON_STOW:
 IF_1 pause 5
-REM_CHECK1:
-	#match STOW_CHECK1 Remove what?
-	#match APP1_REM you remove
-	#match APP1_REM you slide
-	#match APP1_REM you sling
-	#match APP1_REM you work
-	#match APP1_REM you pull
-	#match APP1_REM you take
-	#match APP1_REM you slip
-	#match APP1_REM you loosen
-#put rem my %zTapp1
-	#matchwait
-STOW_CHECK1_PAUSE:
-pause
-STOW_CHECK1:
-put get my %zTapp1
-wait
-put open my %zTapp1
-wait
-	match APP1_DONE Appraise what?
-	matchre APP1_DONE /roundtime|inside something|can't appraise/i
-	match STOW_CHECK1_PAUSE ...wait
-	match STOW_CHECK1_PAUSE type ahead
-put app my %zTapp1 careful
-	match I_QUIT [You're
-	matchwait
-
-APP1_REM_PAUSE:
-pause
-APP1_REM:
-put open my %zTapp1
-wait
-	match WEAR_APP1 Appraise what?
-	match WEAR_APP1 roundtime
-	match APP1_REM_PAUSE ...wait
-	match APP1_REM_PAUSE type ahead
-put app my %zTapp1 careful
-	match I_QUIT [You're
-	matchwait
-
-
-APP1_DONE:
-pause
-put close my %zTapp1
-wait
-put stow my %zTapp1
-wait
-goto REM_CHECK2
-
-WEAR_APP1_PAUSE:
-pause
-WEAR_APP1:
-	match WEAR_APP1_PAUSE ...wait
-	match REM2_CHECK2 you
-put close my %zTapp1
-put wear my %zTapp1
-	matchwait
-
-
-REM2_CHECK2:
-REM_CHECK2:
-	#match STOW_CHECK2 Remove what?
-	#match APP2_REM you remove
-	#match APP2_REM you slide
-	#match APP2_REM you sling
-	#match APP2_REM you slip
-	#match APP2_REM you work
-	#match APP2_REM you pull
-	#match APP2_REM you take
-	#match APP2_REM you loosen
-#put rem my %zTapp2
-	#matchwait
-
-STOW_CHECK2_PAUSE:
-pause
-STOW_CHECK2:
-put get my %zTapp2
-wait
-put open my %zTapp2
-wait
-	match APP2_DONE1 Appraise what?
-	matchre APP2_DONE1 /roundtime|inside something|can't appraise/i
-	match STOW_CHECK2_PAUSE ...wait
-	match STOW_CHECK2_PAUSE type ahead
-put app my %zTapp2 careful
-	match I_QUIT [You're
-	matchwait
-
-APP2_REM_PAUSE:
-pause
-APP2_REM:
-put open my %zTapp2
-wait
-	match WEAR_APP2 Appraise what?
-	match WEAR_APP2 roundtime
-	match APP2_REM_PAUSE ...wait
-	match APP2_REM_PAUSE type ahead
-put app my %zTapp2 careful
-	match I_QUIT [You're
-	matchwait
-
-
-APP2_DONE1:
-pause
-put close my %zTapp2
-wait
-put stow my %zTapp2
-wait
-goto APP2_DONE
-
-WEAR_APP2_PAUSE:
-pause
-WEAR_APP2:
-	match WEAR_APP2_PAUSE ...wait
-	match APP2_DONE you
-put close my %zTapp2
-put wear my %zTapp2
-	matchwait
+#gosub APP_FUN %zTapp1
+#gosub APP_FUN %zTapp1
+#gosub APP_FUN %zTapp1
+#gosub APP_FUN %zTapp2
+#gosub APP_FUN %zTapp2
+#gosub APP_FUN %zTapp2
 
 APP2_DONE_PAUSE:
 pause
@@ -12476,235 +12240,12 @@ APPRAISE:
 	echo
 	echo APPRAISE:
 	echo
-APP_REM_CHECK1:
-	#match APP_STOW_CHECK1 Remove what?
-	#match APP_APP1_REM you remove
-	#match APP_APP1_REM you slide
-	#match APP_APP1_REM you sling
-	#match APP_APP1_REM you slip
-	#match APP_APP1_REM you work
-	#match APP_APP1_REM you pull
-	#match APP_APP1_REM you take
-#put rem my %zTapp1
-	#matchwait
-APP_STOW_CHECK1_PAUSE:
-pause
-APP_STOW_CHECK1:
-put get my %zTapp1
-wait
-put open my %zTapp1
-wait
-	match APP_APP1_DONE Appraise what?
-	matchre APP_APP1_DONE /roundtime|inside something|can't appraise/i
-	match APP_STOW_CHECK1_PAUSE ...wait
-	match APP_STOW_CHECK1_PAUSE type ahead
-put app my %zTapp1 careful
-	match I_QUIT [You're
-	matchwait
-
-APP_APP1_REM_PAUSE:
-pause
-APP_APP1_REM:
-put open my %zTapp1
-wait
-	match APP_WEAR_APP1 Appraise what?
-	match APP_WEAR_APP1 roundtime
-	match APP_APP1_REM_PAUSE ...wait
-	match APP_APP1_REM_PAUSE type ahead
-put app my %zTapp1 careful
-	match I_QUIT [You're
-	matchwait
-
-
-APP_APP1_DONE:
-pause
-put close my %zTapp1
-wait
-put stow my %zTapp1
-wait
-goto APP_REM_CHECK2
-
-APP_WEAR_APP1_PAUSE:
-pause
-APP_WEAR_APP1:
-	match APP_WEAR_APP1_PAUSE ...wait
-	match APP_REM2_CHECK2 you
-put wear my %zTapp1
-	matchwait
-
-
-APP_REM2_CHECK2:
-APP_REM_CHECK2:
-	#match APP_STOW_CHECK2 Remove what?
-	#match APP_APP2_REM you remove
-	#match APP_APP2_REM you sli
-	#match APP_APP2_REM you sling
-	#match APP_APP2_REM you work
-	#match APP_APP2_REM you pull
-	#match APP_APP2_REM you take
-#put rem my %zTapp2
-	#matchwait
-
-APP_STOW_CHECK2_PAUSE:
-pause
-APP_STOW_CHECK2:
-put get my %zTapp2
-wait
-put open my %zTapp2
-wait
-	match APP_APP2_DONE1 Appraise what?
-	matchre APP_APP2_DONE1 /roundtime|inside something|can't appraise/i
-	match APP_STOW_CHECK2_PAUSE ...wait
-	match APP_STOW_CHECK2_PAUSE type ahead
-put app my %zTapp2 careful
-	match I_QUIT [You're
-	matchwait
-
-APP_APP2_REM_PAUSE:
-pause
-APP_APP2_REM:
-put open my %zTapp2
-wait
-	match APP_WEAR_APP2 Appraise what?
-	match APP_WEAR_APP2 roundtime
-	match APP_APP2_REM_PAUSE ...wait
-	match APP_APP2_REM_PAUSE type ahead
-put app my %zTapp2 careful
-	match I_QUIT [You're
-	matchwait
-
-
-APP_APP2_DONE1:
-pause
-put close my %zTapp2
-wait
-put stow my %zTapp2
-wait
-goto APP_REM_CHECK3
-
-APP_WEAR_APP2_PAUSE:
-pause
-APP_WEAR_APP2:
-	match APP_WEAR_APP2_PAUSE ...wait
-	match APP_REM_CHECK3 you
-put wear my %zTapp2
-	matchwait
-
-
-APP_REM_CHECK3:
-	#match APP_STOW_CHECK3 Remove what?
-	#match APP_APP3_REM you remove
-	#match APP_APP3_REM you sli
-	#match APP_APP3_REM you sling
-	#match APP_APP3_REM you work
-	#match APP_APP3_REM you pull
-	#match APP_APP3_REM you take
-#put rem my %zTapp1
-	#matchwait
-APP_STOW_CHECK3_PAUSE:
-pause
-APP_STOW_CHECK3:
-put get my %zTapp1
-wait
-put open my %zTapp1
-wait
-	match APP_APP3_DONE Appraise what?
-	matchre APP_APP3_DONE /roundtime|inside something|can't appraise/i
-	match APP_STOW_CHECK3_PAUSE ...wait
-	match APP_STOW_CHECK3_PAUSE type ahead
-put app my %zTapp1 careful
-	match I_QUIT [You're
-	matchwait
-
-APP_APP3_REM_PAUSE:
-pause
-APP_APP3_REM:
-put open my %zTapp1
-wait
-	match APP_WEAR_APP3 Appraise what?
-	match APP_WEAR_APP3 roundtime
-	match APP_APP3_REM_PAUSE ...wait
-	match APP_APP3_REM_PAUSE type ahead
-put app my %zTapp1 careful
-	match I_QUIT [You're
-	matchwait
-
-
-APP_APP3_DONE:
-pause
-put close my %zTapp1
-wait
-put stow my %zTapp1
-wait
-goto APP_REM_CHECK4
-
-APP_WEAR_APP3_PAUSE:
-pause
-APP_WEAR_APP3:
-	match APP_WEAR_APP3_PAUSE ...wait
-	match APP_REM4_CHECK4 you
-put wear my %zTapp1
-	matchwait
-
-
-APP_REM4_CHECK4:
-APP_REM_CHECK4:
-	#match APP_STOW_CHECK4 Remove what?
-	#match APP_APP4_REM you remove
-	#match APP_APP4_REM you sli
-	#match APP_APP4_REM you sling
-	#match APP_APP4_REM you work
-	#match APP_APP4_REM you pull
-	#match APP_APP4_REM you take
-#put rem my %zTapp2
-	#matchwait
-
-APP_STOW_CHECK4_PAUSE:
-pause
-APP_STOW_CHECK4:
-put get my %zTapp2
-wait
-put open my %zTapp2
-wait
-	match APP_APP4_DONE3 Appraise what?
-	matchre APP_APP4_DONE3 /roundtime|inside something|can't appraise/i
-	match APP_STOW_CHECK4_PAUSE ...wait
-	match APP_STOW_CHECK4_PAUSE type ahead
-put app my %zTapp2 careful
-	match I_QUIT [You're
-	matchwait
-
-APP_APP4_REM_PAUSE:
-pause
-APP_APP4_REM:
-put open my %zTapp2
-wait
-	match APP_WEAR_APP4 Appraise what?
-	match APP_WEAR_APP4 roundtime
-	match APP_APP4_REM_PAUSE ...wait
-	match APP_APP4_REM_PAUSE type ahead
-put app my %zTapp2 careful
-	match I_QUIT [You're
-	matchwait
-
-
-APP_APP4_DONE3:
-pause
-put close my %zTapp2
-wait
-put stow my %zTapp2
-wait
-goto APP_APP4_DONE
-
-APP_WEAR_APP4_PAUSE:
-pause
-APP_WEAR_APP4:
-	match APP_WEAR_APP4_PAUSE ...wait
-	match APP_APP4_DONE you
-put wear my %zTapp2
-	matchwait
-
-APP_APP4_DONE:
+gosub APP_FUN %tZapp1
+gosub APP_FUN %tZapp1
+gosub APP_FUN %tZapp1
+gosub APP_FUN %tZapp2
+gosub APP_FUN %tZapp2
+gosub APP_FUN %tZapp2
 goto %s
 
 2FORAGE_PAUSE:
@@ -22246,6 +21787,21 @@ F_DES_STAND:
 put stand
 	match QUIT [You're
 	matchwait
+
+APP_FUN_PAUSE:
+pause
+APP_FUN:
+getcomponent appraisal exp appraisal
+if %appraisal contains "lock" then goto APP_FUN_END
+	match APP_FUN_END Appraise what?
+	matchre APP_FUN_END /roundtime|inside something|can't appraise/i
+	match APP_FUN_PAUSE ...wait
+	match APP_FUN_PAUSE type ahead
+put app my $1 careful
+	match QUIT [You're
+	matchwait
+APP_FUN_END:
+return
 
 F_NO_GO:
 	echo
