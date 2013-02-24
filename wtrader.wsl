@@ -4871,10 +4871,9 @@ put stand
 
 FERRY_JUGGLE:
 setvariable arrived 0
-action setvariable arrived 1 when its crew ties the ferry off
-action setvariable arrived 1 when pulls up to the dock
-action setvariable arrived 1 when You hear a bell ring out
-action setvariable arrived 1 when A great clanging bell
+action instant setvariable arrived 1 when its crew ties the ferry off
+action instant setvariable arrived 1 when pulls up to the dock
+action instant setvariable arrived 1 when A great clanging bell
 IF_1 put belch
 pause 2
 IF_1 put whis group app hide
@@ -5377,6 +5376,7 @@ put stow my pattern
 FERRY_2_PAUSE:
 pause
 FERRY_2:
+if %arrived = 1 then goto OFF_FERRY
 	echo
 	echo FERRY_2:
 	echo
@@ -5391,6 +5391,7 @@ IF_1 goto WAIT_FERRY1
 WAIT_FERRYFERRY_PAUSE:
 pause
 WAIT_FERRYFERRY:
+if %arrived = 1 then goto OFF_FERRY
 	match WAIT_FERRY1 Eh?
 	match WAIT_FERRY1 You blend
 	match WAIT_FERRY1 You melt into the background
