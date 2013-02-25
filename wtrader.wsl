@@ -2,20 +2,9 @@
 debug on
 put set status
 waitfor Ok.
-put echo /on
-waitfor echo
-echo
-echo ***********************************************
-echo **  [|][|]   [|]  []   [][] []|[] [][]  [][] **
-echo ** [] [] [] [] [] []    []  []     []  []    **
-echo ** [] [] [] []|[] []    []  [][]   []  []    **
-echo ** [] [] [] [] [] [][] [][] []    [][]  [][] **
-echo ***********************************************
-echo
-put echo /off
-waitfor echo
 echo SFtrader
-echo Last tweak 11/16/2010 12:26AM
+echo Last Malific tweak 11/16/2010 12:26AM
+echo     Modified by sproctor
 echo
 echo SITE:  http://www.malific.com/ or http://www.geocities.com/malificdr/
 echo AIM:   Malific Drockmur
@@ -1387,9 +1376,9 @@ put go wind
 IF_1 waitfor group, "done
 IF_1 pause 2
 put dep all
-waitfor you
+waitfor deposit
 put bala
-waitfor you
+waitfor ledger
 counter set %zTcoin
 goto WITHDRAW
 
@@ -5346,6 +5335,10 @@ WAIT_FERRY1:
 
 
 OFF_FERRY:
+put stow left
+wait
+put stow right
+wait
 	echo
 	echo OFF_FERRY:
 	echo
@@ -6648,6 +6641,8 @@ wait
 goto ARTHE_STUDY
 
 ARTHE_STUDY:
+gosub APP_FUN %zTapp1
+gosub APP_FUN %zTapp2
 IF_1 put whis group study
 IF_1 pause 5
 	match ARTHE_PATTERN referring
@@ -11921,11 +11916,20 @@ put stow my paper
 
 
 PATTERN:
+gosub APP_FUN %zTapp1
+gosub APP_FUN %zTapp2
+gosub APP_FUN %zTapp1
+gosub APP_FUN %zTapp2
+gosub APP_FUN %zTapp1
+gosub APP_FUN %zTapp2
+PATTERN_GET_COM_PAUSE:
+pause
 IF_1 put whis group study
 IF_1 pause 5
 	match PATTERN1 referring
 	match STUDY_COM1_DIRGE you get
 	match STUDY_COM1_DIRGE you open
+	match PATTERN_GET_COM_PAUSE ..wait
 	match QUIT [You're
 put get my compendium
 put open my compendium
@@ -13445,56 +13449,11 @@ goto T_CON_STOW
 T_CON_STOW_PAUSE:
 pause
 T_CON_STOW:
-put nod %1
-waitfor you nod
-#put rem my %zTapp1
-#wait
-put get my %zTapp1
-wait
-put open my %zTapp1
-wait
-	match T_APP1_DONE Appraise what?
-	match T_APP1_DONE roundtime
-	match T_CON_STOW_PAUSE ...wait
-	match T_CON_STOW_PAUSE type ahead
-put app my %zTapp1 Quick
-	match QUIT [You're
-	matchwait
-
-T_APP1_DONE:
-pause
-put close my %zTapp1
-wait
-put wear my %zTapp1
-wait
-put stow my %zTapp1
-wait
-#put rem my %zTapp2
-#wait
-put get my %zTapp2
-wait
-put open my %zTapp2
-wait
-
-T_APP2_PAUSE:
-pause
-T_APP2:
-	match T_APP_DONE Appraise what?
-	match T_APP_DONE roundtime
-	match T_APP2_PAUSE ...wait
-	match T_APP2_PAUSE type ahead
-put app my %zTapp2 quick
-	match QUIT [You're
-	matchwait
-
-T_APP_DONE:
-pause
-put close my %zTapp2
-wait
-put wear my %zTapp2
-wait
-put stow my %zTapp2
-wait
+if_1 put nod %1
+if_1 waitfor you nod
+#gosub APP_FUN %zTapp1
+#gosub APP_FUN %zTapp2
+goto T_CON_DONE
 
 T_NOD:
 waitfor %1 hums
@@ -14641,92 +14600,12 @@ wait
 T_APP_CROSS_FERRY_PAUSE:
 pause
 T_APP_CROSS_FERRY:
-	match T_APP_POUCH_C_F Appraise what?
-	matchre T_APP_POUCH_C_F /roundtime|inside something|can't appraise/i
-	match T_APP_CROSS_FERRY_PAUSE ...wait
-	match T_APP_CROSS_FERRY_PAUSE type ahead
-put app my %zTapp1 quick
-	match T_QUIT [You're
-	matchwait
-
-T_APP_POUCH_C_F_PAUSE:
-pause
-T_APP_POUCH_C_F:
-	match T_APP_BUN_C_F Appraise what?
-	matchre T_APP_BUN_C_F /roundtime|inside something|can't appraise/i
-	match T_APP_POUCH_C_F_PAUSE ...wait
-	match T_APP_POUCH_C_F_PAUSE type ahead
-put app my %zTapp2 quick
-	match T_QUIT [You're
-	matchwait
-
-T_APP_BUN_C_F_PAUSE:
-pause
-T_APP_BUN_C_F:
-	match T_APP_POUCH1_C_F Appraise what?
-	matchre T_APP_POUCH1_C_F /roundtime|inside something|can't appraise/i
-	match T_APP_BUN_C_F_PAUSE ...wait
-	match T_APP_BUN_C_F_PAUSE type ahead
-put app my %zTapp1 quick
-	match T_QUIT [You're
-	matchwait
-
-
-T_APP_POUCH1_C_F_PAUSE:
-pause
-T_APP_POUCH1_C_F:
-	match T_APP_BUN1_C_F Appraise what?
-	matchre T_APP_BUN1_C_F /roundtime|inside something|can't appraise/i
-	match T_APP_POUCH1_C_F_PAUSE ...wait
-	match T_APP_POUCH1_C_F_PAUSE type ahead
-put app my %zTapp2 quick
-	match T_QUIT [You're
-	matchwait
-
-T_APP_BUN1_C_F_PAUSE:
-pause
-T_APP_BUN1_C_F:
-	match T_APP_POUCH2_C_F Appraise what?
-	matchre T_APP_POUCH2_C_F /roundtime|inside something|can't appraise/i
-	match T_APP_BUN1_C_F_PAUSE ...wait
-	match T_APP_BUN1_C_F_PAUSE type ahead
-put app my %zTapp1 quick
-	match T_QUIT [You're
-	matchwait
-
-
-T_APP_POUCH2_C_F_PAUSE:
-pause
-T_APP_POUCH2_C_F:
-	match T_APP_BUN2_C_F Appraise what?
-	matchre T_APP_BUN2_C_F /roundtime|inside something|can't appraise/i
-	match T_APP_POUCH2_C_F_PAUSE ...wait
-	match T_APP_POUCH2_C_F_PAUSE type ahead
-put app my %zTapp2 quick
-	match T_QUIT [You're
-	matchwait
-
-T_APP_BUN2_C_F_PAUSE:
-pause
-T_APP_BUN2_C_F:
-	match T_FERRY_TO_CROSS_CLOSE Appraise what?
-	matchre T_FERRY_TO_CROSS_CLOSE /roundtime|inside something|can't appraise/i
-	match T_APP_BUN2_C_F_PAUSE ...wait
-	match T_APP_BUN2_C_F_PAUSE type ahead
-put app my %zTapp1 quick
-	match T_QUIT [You're
-	matchwait
-
-T_FERRY_TO_CROSS_CLOSE_PAUSE:
-pause
-T_FERRY_TO_CROSS_CLOSE:
-	match T_PATTERN_APP close
-	match T_PATTERN_APP referring
-	match T_FERRY_TO_CROSS_CLOSE_PAUSE ...wait
-	match T_FERRY_TO_CROSS_CLOSE_PAUSE type ahead
-put close my gem pouch
-	match T_QUIT [You're
-	matchwait
+gosub APP_FUN %zTapp1
+gosub APP_FUN %zTapp2
+gosub APP_FUN %zTapp1
+gosub APP_FUN %zTapp2
+gosub APP_FUN %zTapp1
+gosub APP_FUN %zTapp2
 
 
 T_PATTERN_APP:
@@ -14916,80 +14795,9 @@ goto P_CON_STOW
 P_CON_STOW_PAUSE:
 pause
 P_CON_STOW:
-put nod %1
-waitfor you nod
-#put rem my %zTapp1
-#wait
-put get my %zTapp1
-wait
-put open my %zTapp1
-wait
-	match P_APP1_DONE Appraise what?
-	match P_APP1_DONE roundtime
-	match P_CON_STOW_PAUSE ...wait
-	match P_CON_STOW_PAUSE type ahead
-put app my %zTapp1 careful
-	match QUIT [You're
-	matchwait
-
-P_APP1_DONE:
-pause
-put close my %zTapp1
-wait
-put wear my %zTapp1
-wait
-put stow my %zTapp1
-wait
-#put rem my %zTapp2
-#wait
-put get my %zTapp2
-wait
-put open my %zTapp2
-wait
-
-P_APP2_PAUSE:
-pause
-P_APP2:
-	match P_APP_DONE Appraise what?
-	match P_APP_DONE roundtime
-	match P_APP2_PAUSE ...wait
-	match P_APP2_PAUSE type ahead
-put app my %zTapp2 careful
-	match QUIT [You're
-	matchwait
-
-P_APP_DONE:
-pause
-put close my %zTapp2
-wait
-put wear my %zTapp2
-wait
-put stow my %zTapp2
-wait
-
-P_NOD:
-	match IDLE YOU HAVE BEEN IDLE TOO LONG. PLEASE RESPOND.
-	match P_NOD3 %1 hums
-	match P_QUIT [You're
-	matchwait
-
-P_NOD3:
-put join %1
-wait
-put whisper group ready
-waitfor whisper
-P_NOD2:
-	echo
-	echo P_NOD2:
-	echo
-	match P_CON_DONE %1's group just
-	match P_CON_DONE %1%'s group just
-	match P_CON_DONE You follow %1
-	match P_NEED_LETH group, "Anyone for Leth?"
-	match P_BANK_WAIT group, "bank run
-	match P_QUIT [You're
-	match IDLE YOU HAVE BEEN IDLE TOO LONG. PLEASE RESPOND.
-	matchwait
+if_1 put nod %1
+if_1 waitfor you nod
+#gosub APP_FUN %zTapp1
 
 P_CON_DONE:
 	echo
@@ -15935,16 +15743,6 @@ put study my pattern
 put encum
 	matchwait
 
-P_STUDY_drop_PAUSE:
-pause
-P_STUDY_drop:
-	match P_WAIT you drop
-	match P_STUDY_drop_PAUSE ...wait
-	match P_STUDY_drop_PAUSE type ahead
-	match P_QUIT [You're
-put drop my pattern
-	matchwait
-
 P_STUDY_STOW_PAUSE:
 pause
 P_STUDY_STOW:
@@ -16089,84 +15887,13 @@ put hide
 	match P_QUIT [You're
 	matchwait
 
-P_APP_CROSS_FERRY_PAUSE:
-pause
 P_APP_CROSS_FERRY:
-	match P_APP_POUCH_C_F Appraise what?
-	matchre P_APP_POUCH_C_F /roundtime|inside something|can't appraise/i
-	match P_APP_CROSS_FERRY_PAUSE ...wait
-	match P_APP_CROSS_FERRY_PAUSE type ahead
-put app my %zTapp1 careful
-	match P_QUIT [You're
-	matchwait
-
-P_APP_POUCH_C_F_PAUSE:
-pause
-P_APP_POUCH_C_F:
-	match P_APP_BUN_C_F Appraise what?
-	matchre P_APP_BUN_C_F /roundtime|inside something|can't appraise/i
-	match P_APP_POUCH_C_F_PAUSE ...wait
-	match P_APP_POUCH_C_F_PAUSE type ahead
-put app my %zTapp2 careful
-	match P_QUIT [You're
-	matchwait
-
-P_APP_BUN_C_F_PAUSE:
-pause
-P_APP_BUN_C_F:
-	match P_APP_POUCH1_C_F Appraise what?
-	matchre P_APP_POUCH1_C_F /roundtime|inside something|can't appraise/i
-	match P_APP_BUN_C_F_PAUSE ...wait
-	match P_APP_BUN_C_F_PAUSE type ahead
-put app my %zTapp1 careful
-	match P_QUIT [You're
-	matchwait
-
-
-P_APP_POUCH1_C_F_PAUSE:
-pause
-P_APP_POUCH1_C_F:
-	match P_APP_BUN1_C_F Appraise what?
-	matchre P_APP_BUN1_C_F /roundtime|inside something|can't appraise/i
-	match P_APP_POUCH1_C_F_PAUSE ...wait
-	match P_APP_POUCH1_C_F_PAUSE type ahead
-put app my %zTapp2 careful
-	match P_QUIT [You're
-	matchwait
-
-P_APP_BUN1_C_F_PAUSE:
-pause
-P_APP_BUN1_C_F:
-	match P_APP_POUCH2_C_F Appraise what?
-	matchre P_APP_POUCH2_C_F /roundtime|inside something|can't appraise/i
-	match P_APP_BUN1_C_F_PAUSE ...wait
-	match P_APP_BUN1_C_F_PAUSE type ahead
-put app my %zTapp1 careful
-	match P_QUIT [You're
-	matchwait
-
-
-P_APP_POUCH2_C_F_PAUSE:
-pause
-P_APP_POUCH2_C_F:
-	match P_APP_BUN2_C_F Appraise what?
-	matchre P_APP_BUN2_C_F /roundtime|inside something|can't appraise/i
-	match P_APP_POUCH2_C_F_PAUSE ...wait
-	match P_APP_POUCH2_C_F_PAUSE type ahead
-put app my %zTapp2 careful
-	match P_QUIT [You're
-	matchwait
-
-P_APP_BUN2_C_F_PAUSE:
-pause
-P_APP_BUN2_C_F:
-	match P_FERRY_TO_CROSS_CLOSE Appraise what?
-	matchre P_FERRY_TO_CROSS_CLOSE /roundtime|inside something|can't appraise/i
-	match P_APP_BUN2_C_F_PAUSE ...wait
-	match P_APP_BUN2_C_F_PAUSE type ahead
-put app my %zTapp1 careful
-	match P_QUIT [You're
-	matchwait
+gosub APP_FUN %zTapp1
+gosub APP_FUN %zTapp2
+gosub APP_FUN %zTapp1
+gosub APP_FUN %zTapp2
+gosub APP_FUN %zTapp1
+gosub APP_FUN %zTapp2
 
 P_FERRY_TO_CROSS_CLOSE_PAUSE:
 pause
