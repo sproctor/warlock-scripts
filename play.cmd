@@ -1,16 +1,19 @@
 setvariable instrument lyre
 setvariable song ditty
 setvariable mood quiet
+goto START
 
-START:
+GET:
 match NOTFOUND What were you referring to?
 match DOPLAY You are already holding that.
 match DOPLAY You get a
 put get my %instrument
 matchwait
 
+START:
 DOPLAY:
 put play %song %mood
+match GET Play on what
 match CHECKEXP You finish
 matchwait
 
@@ -21,7 +24,8 @@ put exp performance
 matchwait
 
 WAITEXP:
-pause 300
+echo Waiting for exp to absorb
+pause 60
 goto CHECKEXP
 
 NOTFOUND:
