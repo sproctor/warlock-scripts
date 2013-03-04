@@ -7,9 +7,15 @@ CHECKEXP:
 	getcomponent outdoorsmanship exp outdoorsmanship
 	getcomponent perception exp perception
 	if %outdoorsmanship contains "mind lock" && %perception contains "mind lock" then goto WAITEXP
+	goto DOCOLLECT
+DOCOLLECT_PAUSE:
+	pause
 DOCOLLECT:
 	match KICK You manage to collect
 	match CHECKEXP You forage around
+	match CHECKEXP You wander around
+	match CHECKEXP You begin to forage
+	match DOCOLLECT_PAUSE ...wait
 	put collect %1
 	matchwait
 KICKPAUSE:
@@ -21,5 +27,6 @@ KICK:
 	put kick pile
 	matchwait
 WAITEXP:
-	pause 10
+	echo waiting for exp to absorb
+	pause 60
 	goto CHECKEXP
