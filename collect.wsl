@@ -21,5 +21,5 @@ KICK:
 	put kick pile
 	matchwait
 WAITEXP:
-	pause 300
+	pause 10
 	goto CHECKEXP
