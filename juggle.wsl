@@ -1,0 +1,29 @@
+if_1 goto START
+echo Usage: juggle <item>
+exit
+
+START:
+CHECKEXP:
+	getcomponent perception exp perception
+	if %perception contains "mind lock" then goto WAITEXP
+	goto DOJUGGLE
+
+JUGGLE_PAUSE:
+	pause 1
+DOJUGGLE:
+	match CHECKEXP You toss
+	match GET not holding
+	match NOBALLS What were you referring to
+	match JUGGLE_PAUSE ...wait
+	put juggle my %1
+	matchwait
+
+GET:
+	match NOBALLS What were you referring to
+	match DOJUGGLE You get
+	put get my %1
+	matchwait
+
+WAITEXP:
+	pause 10
+	goto CHECKEXP
