@@ -707,9 +707,9 @@ IF_1 put whisper group feed
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
-pause
+wait
 	IF_1 match AT_CROSS_F group, "ready
 	IF_1 match AT_CROSS_F_SHIFT YOU HAVE BEEN IDLE TOO LONG. PLEASE RESPOND.
 	IF_1 match QUIT [You're
@@ -1358,7 +1358,7 @@ put e
 	matchwait
 CROSS_T_BANK:
 move e
-put go side door
+move go side door
 move go foyer
 move out
 move out
@@ -1372,7 +1372,7 @@ move s
 move go bridge
 move ne
 move go bank
-put go wind
+move go wind
 IF_1 waitfor group, "done
 IF_1 pause 2
 put dep all
@@ -5734,7 +5734,7 @@ IF_1 put whisper group feed
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 	IF_1 match AT_LETH_F group, "ready
@@ -7053,7 +7053,7 @@ IF_1 put whisper group feed
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 	IF_1 match AT_STONE22 group, "ready
@@ -7353,7 +7353,7 @@ IF_1 put whisper group feed
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 	IF_1 match AT_DIRGE2B group, "ready
@@ -7863,7 +7863,7 @@ I_GON_NF:
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 
 I_GON_N_CHECK:
@@ -7879,7 +7879,7 @@ I_GON_SF:
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 
 I_GON_S_CHECK:
@@ -8776,7 +8776,7 @@ waitfor you
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 
@@ -8943,7 +8943,7 @@ waitfor following you
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 
@@ -9013,7 +9013,7 @@ I_GON_SHA_HIDE:
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 	match I_GON_SHA_WAIT1 Eh?
@@ -9040,7 +9040,7 @@ waitfor following you
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 I_LETH_TO_SHA_GON_SKILL:
@@ -9524,7 +9524,7 @@ I_SHA_GON_HIDE:
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 	match I_SHA_GON_WAIT1 Eh?
@@ -9551,7 +9551,7 @@ waitfor following you
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 I_SHA_TO_LETH_GON_SKILL:
@@ -9666,7 +9666,7 @@ I_AT_SHA_LETH:
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 put tell caravan lead to crossing
@@ -9818,7 +9818,7 @@ F_I_GON_NF:
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 
 F_I_GON_N_CHECK:
@@ -9834,7 +9834,7 @@ F_I_GON_SF:
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 
 F_I_GON_S_CHECK:
@@ -10400,7 +10400,7 @@ waitfor you
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 
@@ -10567,7 +10567,7 @@ waitfor following you
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 
@@ -10637,7 +10637,7 @@ F_I_GON_SHA_HIDE:
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 	match F_I_GON_SHA_WAIT1 Eh?
@@ -10664,7 +10664,7 @@ waitfor following you
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 F_I_LETH_TO_SHA_GON_SKILL:
@@ -11066,7 +11066,7 @@ F_I_SHA_GON_HIDE:
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 	match F_I_SHA_GON_WAIT1 Eh?
@@ -11093,7 +11093,7 @@ waitfor following you
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 F_I_SHA_TO_LETH_GON_SKILL:
@@ -11209,7 +11209,7 @@ F_I_AT_SHA_LETH:
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 put tell caravan lead to crossing
@@ -12400,7 +12400,7 @@ wait
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 goto FEED_NOD
@@ -15912,7 +15912,7 @@ IF_2 goto P_APP_FEED2
 put rem my feedbag
 wait
 put give second cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 goto P_PATTERN_APP
@@ -15921,7 +15921,7 @@ P_APP_FEED2:
 put rem my feedbag
 wait
 put give %2 cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 goto P_PATTERN_APP
@@ -16166,7 +16166,7 @@ wait
 put rem my feedbag
 wait
 put give second cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 goto P_FEED_NOD
@@ -16178,7 +16178,7 @@ wait
 put rem my feedbag
 wait
 put give %2 cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 goto P_FEED_NOD
@@ -16855,7 +16855,7 @@ waitfor you
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 goto F_AT_CROSS_F
@@ -19069,7 +19069,7 @@ F_GOB_TIGER_WOLF17:
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 move s
@@ -20275,7 +20275,7 @@ waitfor following you
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 FEED_AT_LETH_DOCK:
 match FEED_AT_LETH_DOCK type ahead
 match FEED_AT_LETH_DOCK ...wait
@@ -20750,7 +20750,7 @@ F_AT_ARTHE:
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 put tell caravan follow
@@ -20986,7 +20986,7 @@ waitfor following you
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 goto F_CLIMB_TRAIL_PAUSE
@@ -21230,7 +21230,7 @@ waitfor you
 put rem my feedbag
 wait
 put give cara
-wait
+waitfor driver
 put wear my feedbag
 wait
 goto F_AT_DIRGE2B
