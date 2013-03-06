@@ -1,22 +1,31 @@
 #SFtrader - Hands free trading for Crossing and Interprovince.
-debug on
+debug 3
 put set status
 waitfor Ok.
-echo SFtrader
+echo wtrader
+echo SITE: https://github.com/sproctor/warlock-scripts
 echo Last Malific tweak 11/16/2010 12:26AM
 echo     Modified by sproctor
-echo
-echo SITE:  http://www.malific.com/ or http://www.geocities.com/malificdr/
-echo AIM:   Malific Drockmur
-echo EMAIL: drockmali@hotmail.com
 echo
 echo ** First time use:
 echo **    .SFtrader SET <jugglies> <App1> <App2> <origami instructions name> <# of coins> <silver/bronze/copper> <instrument> <song> <mood> (name of weapon for teacher - This is used only when the master tells the teacher to "teach weapon") (skill to teach)
 echo
+STOW_START:
+match CLOSE_LEDGER You really should close your ledger
+match STOW_RIGHT You put
+match STOW_RIGHT Stow what?
 put stow left
-wait
+matchwait
+STOW_RIGHT:
+match CLOSE_LEDGER You really should close your ledger
+match STOW_DONE You put
+match STOW_DONE Stow what?
 put stow right
-wait
+matchwait
+CLOSE_LEDGER:
+put close my ledger
+goto STOW_START
+STOW_DONE:
 IF_1 goto %1
 ZTSET:
 IF_1 goto 1%1
@@ -195,22 +204,7 @@ CARA_CHECK:
 	echo
 	echo CARA_CHECK:
 	echo
-setvariable zTRagad HAVE_CARA
-	match RAGAD_STURDY for your sturdy caravan.
-	match RAGAD_IRON for your iron-banded caravan.
-	match RAGAD_WEATHERED for your weathered caravan.
-	match RAGAD_MULE for your two mule caravan.
-	match RAGAD_RICKETY for your rickety caravan.
-	match RAGAD_STEEL for your steel-wheeled caravan.
-	match RAGAD_BLACK for your sleek black caravan.
-	match RAGAD_BLUE for your deep blue caravan.
-	match RAGAD_COVERED for your covered caravan.
-	match RAGAD_RED for your bright red caravan.
-	match RAGAD_OX for your oxen drawn caravan.
-	match RAGAD_CLAD for your ironclad caravan.
-	match RAGAD_GILT for your gilt-edged caravan.
-	match RAGAD_WOOD for your polished wood caravan.
-	match RAGAD_SITH for your sithannik caravan.
+	match HAVE_CARA You tell the driver
 	match BEGIN referring
 	match OTHER_CHECK belonging to
 put look caravan
@@ -219,21 +213,7 @@ put look caravan
 
 OTHER_CHECK:
 pause
-	match RAGAD_STURDY for your sturdy caravan.
-	match RAGAD_IRON for your iron-banded caravan.
-	match RAGAD_WEATHERED for your weathered caravan.
-	match RAGAD_MULE for your two mule caravan.
-	match RAGAD_RICKETY for your rickety caravan.
-	match RAGAD_STEEL for your steel-wheeled caravan.
-	match RAGAD_BLACK for your sleek black caravan.
-	match RAGAD_BLUE for your deep blue caravan.
-	match RAGAD_COVERED for your covered caravan.
-	match RAGAD_RED for your bright red caravan.
-	match RAGAD_OX for your oxen drawn caravan.
-	match RAGAD_CLAD for your ironclad caravan.
-	match RAGAD_GILT for your gilt-edged caravan.
-	match RAGAD_WOOD for your polished wood caravan.
-	match RAGAD_SITH for your sithannik caravan.
+	match HAVE_CARA You tell the driver
 	match BEGIN referring
 	match OTHER_CHECK1 belonging to
 put look other caravan
@@ -242,21 +222,7 @@ put look other caravan
 
 OTHER_CHECK1:
 pause
-	match RAGAD_STURDY for your sturdy caravan.
-	match RAGAD_IRON for your iron-banded caravan.
-	match RAGAD_WEATHERED for your weathered caravan.
-	match RAGAD_MULE for your two mule caravan.
-	match RAGAD_RICKETY for your rickety caravan.
-	match RAGAD_STEEL for your steel-wheeled caravan.
-	match RAGAD_BLACK for your sleek black caravan.
-	match RAGAD_BLUE for your deep blue caravan.
-	match RAGAD_COVERED for your covered caravan.
-	match RAGAD_RED for your bright red caravan.
-	match RAGAD_OX for your oxen drawn caravan.
-	match RAGAD_CLAD for your ironclad caravan.
-	match RAGAD_GILT for your gilt-edged caravan.
-	match RAGAD_WOOD for your polished wood caravan.
-	match RAGAD_SITH for your sithannik caravan.
+	match HAVE_CARA You tell the driver
 	match BEGIN referring
 	match OTHER_CHECK2 belonging to
 put look third caravan
@@ -265,21 +231,7 @@ put look third caravan
 
 OTHER_CHECK2:
 pause
-	match RAGAD_STURDY for your sturdy caravan.
-	match RAGAD_IRON for your iron-banded caravan.
-	match RAGAD_WEATHERED for your weathered caravan.
-	match RAGAD_MULE for your two mule caravan.
-	match RAGAD_RICKETY for your rickety caravan.
-	match RAGAD_STEEL for your steel-wheeled caravan.
-	match RAGAD_BLACK for your sleek black caravan.
-	match RAGAD_BLUE for your deep blue caravan.
-	match RAGAD_COVERED for your covered caravan.
-	match RAGAD_RED for your bright red caravan.
-	match RAGAD_OX for your oxen drawn caravan.
-	match RAGAD_CLAD for your ironclad caravan.
-	match RAGAD_GILT for your gilt-edged caravan.
-	match RAGAD_WOOD for your polished wood caravan.
-	match RAGAD_SITH for your sithannik caravan.
+	match HAVE_CARA You tell the driver
 	match BEGIN referring
 	match OTHER_CHECK3 belonging to
 put look fourth caravan
@@ -288,21 +240,7 @@ put look fourth caravan
 
 OTHER_CHECK3:
 pause
-	match RAGAD_STURDY for your sturdy caravan.
-	match RAGAD_IRON for your iron-banded caravan.
-	match RAGAD_WEATHERED for your weathered caravan.
-	match RAGAD_MULE for your two mule caravan.
-	match RAGAD_RICKETY for your rickety caravan.
-	match RAGAD_STEEL for your steel-wheeled caravan.
-	match RAGAD_BLACK for your sleek black caravan.
-	match RAGAD_BLUE for your deep blue caravan.
-	match RAGAD_COVERED for your covered caravan.
-	match RAGAD_RED for your bright red caravan.
-	match RAGAD_OX for your oxen drawn caravan.
-	match RAGAD_CLAD for your ironclad caravan.
-	match RAGAD_GILT for your gilt-edged caravan.
-	match RAGAD_WOOD for your polished wood caravan.
-	match RAGAD_SITH for your sithannik caravan.
+	match HAVE_CARA You tell the driver
 	match BEGIN referring
 	match OTHER_CHECK4 belonging to
 put look fifth caravan
@@ -311,21 +249,7 @@ put look fifth caravan
 
 OTHER_CHECK4:
 pause
-	match RAGAD_STURDY for your sturdy caravan.
-	match RAGAD_IRON for your iron-banded caravan.
-	match RAGAD_WEATHERED for your weathered caravan.
-	match RAGAD_MULE for your two mule caravan.
-	match RAGAD_RICKETY for your rickety caravan.
-	match RAGAD_STEEL for your steel-wheeled caravan.
-	match RAGAD_BLACK for your sleek black caravan.
-	match RAGAD_BLUE for your deep blue caravan.
-	match RAGAD_COVERED for your covered caravan.
-	match RAGAD_RED for your bright red caravan.
-	match RAGAD_OX for your oxen drawn caravan.
-	match RAGAD_CLAD for your ironclad caravan.
-	match RAGAD_GILT for your gilt-edged caravan.
-	match RAGAD_WOOD for your polished wood caravan.
-	match RAGAD_SITH for your sithannik caravan.
+	match HAVE_CARA You tell the driver
 	match BEGIN referring
 	match OTHER_CHECK5 belonging to
 put look sixth caravan
@@ -334,21 +258,7 @@ put look sixth caravan
 
 OTHER_CHECK5:
 pause
-	match RAGAD_STURDY for your sturdy caravan.
-	match RAGAD_IRON for your iron-banded caravan.
-	match RAGAD_WEATHERED for your weathered caravan.
-	match RAGAD_MULE for your two mule caravan.
-	match RAGAD_RICKETY for your rickety caravan.
-	match RAGAD_STEEL for your steel-wheeled caravan.
-	match RAGAD_BLACK for your sleek black caravan.
-	match RAGAD_BLUE for your deep blue caravan.
-	match RAGAD_COVERED for your covered caravan.
-	match RAGAD_RED for your bright red caravan.
-	match RAGAD_OX for your oxen drawn caravan.
-	match RAGAD_CLAD for your ironclad caravan.
-	match RAGAD_GILT for your gilt-edged caravan.
-	match RAGAD_WOOD for your polished wood caravan.
-	match RAGAD_SITH for your sithannik caravan.
+	match HAVE_CARA You tell the driver
 	match BEGIN referring
 	match OTHER_CHECK6 belonging to
 put look seventh caravan
@@ -357,21 +267,7 @@ put look seventh caravan
 
 OTHER_CHECK6:
 pause
-	match RAGAD_STURDY for your sturdy caravan.
-	match RAGAD_IRON for your iron-banded caravan.
-	match RAGAD_WEATHERED for your weathered caravan.
-	match RAGAD_MULE for your two mule caravan.
-	match RAGAD_RICKETY for your rickety caravan.
-	match RAGAD_STEEL for your steel-wheeled caravan.
-	match RAGAD_BLACK for your sleek black caravan.
-	match RAGAD_BLUE for your deep blue caravan.
-	match RAGAD_COVERED for your covered caravan.
-	match RAGAD_RED for your bright red caravan.
-	match RAGAD_OX for your oxen drawn caravan.
-	match RAGAD_CLAD for your ironclad caravan.
-	match RAGAD_GILT for your gilt-edged caravan.
-	match RAGAD_WOOD for your polished wood caravan.
-	match RAGAD_SITH for your sithannik caravan.
+	match HAVE_CARA You tell the driver
 	match BEGIN referring
 	match OTHER_CHECK7 belonging to
 put look eighth caravan
@@ -380,90 +276,12 @@ put look eighth caravan
 
 OTHER_CHECK7:
 pause
-	match RAGAD_STURDY for your sturdy caravan.
-	match RAGAD_IRON for your iron-banded caravan.
-	match RAGAD_WEATHERED for your weathered caravan.
-	match RAGAD_MULE for your two mule caravan.
-	match RAGAD_RICKETY for your rickety caravan.
-	match RAGAD_STEEL for your steel-wheeled caravan.
-	match RAGAD_BLACK for your sleek black caravan.
-	match RAGAD_BLUE for your deep blue caravan.
-	match RAGAD_COVERED for your covered caravan.
-	match RAGAD_RED for your bright red caravan.
-	match RAGAD_OX for your oxen drawn caravan.
-	match RAGAD_CLAD for your ironclad caravan.
-	match RAGAD_GILT for your gilt-edged caravan.
-	match RAGAD_WOOD for your polished wood caravan.
-	match RAGAD_SITH for your sithannik caravan.
+	match HAVE_CARA You tell the driver
 	match BEGIN referring
 	match BEGIN belonging to
 put look ninth caravan
 	match QUIT [You're
 	matchwait
-
-RAGAD_OX:
-setvariable zTcaravan oxen drawn caravan
-goto %zTRagad
-
-RAGAD_CLAD:
-setvariable zTcaravan ironclad caravan
-goto %zTRagad
-
-RAGAD_GILT:
-setvariable zTcaravan gilt-edged caravan
-goto %zTRagad
-
-RAGAD_WOOD:
-setvariable zTcaravan polished wood caravan
-goto %zTRagad
-
-RAGAD_SITH:
-setvariable zTcaravan sithannik caravan
-goto %zTRagad
-
-RAGAD_BLACK:
-setvariable zTcaravan sleek black caravan
-goto %zTRagad
-
-RAGAD_BLUE:
-setvariable zTcaravan deep blue caravan
-goto %zTRagad
-
-RAGAD_COVERED:
-setvariable zTcaravan covered caravan
-goto %zTRagad
-
-RAGAD_RED:
-setvariable zTcaravan bright red caravan
-goto %zTRagad
-
-RAGAD_WHEELED:
-setvariable zTcaravan four-wheeled caravan
-goto %zTRagad
-
-RAGAD_STEEL:
-setvariable zTcaravan steel-wheeled caravan
-goto %zTRagad
-
-RAGAD_RICKETY:
-setvariable zTcaravan rickety caravan
-goto %zTRagad
-
-RAGAD_MULE:
-setvariable zTcaravan two mule caravan
-goto %zTRagad
-
-RAGAD_WEATHERED:
-setvariable zTcaravan weathered caravan
-goto %zTRagad
-
-RAGAD_IRON:
-setvariable zTcaravan iron-banded caravan
-goto %zTRagad
-
-RAGAD_STURDY:
-setvariable zTcaravan sturdy caravan
-goto %zTRagad
 
 HAVE_CARA:
 	echo
@@ -531,8 +349,8 @@ goto DES_CHECK
 
 UNKNOWN_CARA:
 save HAVE_CARA
-	match NO_GO go next and it stops.
-	match HIDE acknowledges the order.
+	match NO_GO go next and it stops
+	match HIDE acknowledges the order
 put tell caravan lead to crossing
 	match QUIT [You're
 	matchwait
@@ -1474,6 +1292,7 @@ put tell caravan go fast
 waitfor you
 put tell caravan lead to arthe dale
 waitfor you
+action setVariable arrived 1 when Vally, Village Gate
 save AT_ARTHE_CROSS
 counter set 5
 goto PATTERN
@@ -11916,12 +11735,14 @@ put stow my paper
 
 
 PATTERN:
+setVariable arrived 0
 gosub APP_FUN %zTapp1
 gosub APP_FUN %zTapp2
 gosub APP_FUN %zTapp1
 gosub APP_FUN %zTapp2
 gosub APP_FUN %zTapp1
 gosub APP_FUN %zTapp2
+if %arrived = 1 then goto %s
 PATTERN_GET_COM_PAUSE:
 pause
 IF_1 put whis group study
@@ -12088,83 +11909,28 @@ put stow my compendium
 
 PATTERN1:
 pause
+if %arrived = 1 then goto %s
+setVariable
 	match JUGGLE referring
-	match DIRGE_STUDY1 you get
+	match DIRGE_STUDY you get
 	match QUIT [You're
 put get my pattern
 	matchwait
 
-DIRGE_STUDY1_PAUSE:
+DIRGE_STUDY_PAUSE:
 pause
-DIRGE_STUDY1:
+DIRGE_STUDY:
+if %arrived = 1 then goto D_STUDY_STOW
+if %study_count = 5 then goto D_STUDY_STOW
+math study_count add 1
 	match D_STUDY_STOW You believe that you understand
-	match DIRGE_STUDY2 roundtime
+	match DIRGE_STUDY roundtime
 	match D_STUDY_STOW You already know enough
 	match D_STUDY_STOW You don't have the proper training for that.
-	match DIRGE_STUDY1_PAUSE ...wait
-	match DIRGE_STUDY1_PAUSE type ahead
+	match DIRGE_STUDY_PAUSE ...wait
+	match DIRGE_STUDY_PAUSE type ahead
 	match QUIT [You're
-	match DIRGE_STUDY1_PAUSE Encumbrance:
-	match D_STUDY_DROP so much that you can't make out any
-put study my pattern
-put encum
-	matchwait
-
-DIRGE_STUDY2_PAUSE:
-pause
-DIRGE_STUDY2:
-	match D_STUDY_STOW You believe that you understand
-	match DIRGE_STUDY3 roundtime
-	match D_STUDY_STOW You already know enough
-	match DIRGE_STUDY2_PAUSE ...wait
-	match DIRGE_STUDY2_PAUSE type ahead
-	match QUIT [You're
-	match DIRGE_STUDY2_PAUSE Encumbrance:
-	match D_STUDY_DROP so much that you can't make out any
-put study my pattern
-put encum
-	matchwait
-
-DIRGE_STUDY3_PAUSE:
-pause
-DIRGE_STUDY3:
-	match D_STUDY_STOW You believe that you understand
-	match DIRGE_STUDY4 roundtime
-	match D_STUDY_STOW You already know enough
-	match DIRGE_STUDY3_PAUSE ...wait
-	match DIRGE_STUDY3_PAUSE type ahead
-	match QUIT [You're
-	match DIRGE_STUDY3_PAUSE Encumbrance:
-	match D_STUDY_DROP so much that you can't make out any
-put study my pattern
-put encum
-	matchwait
-
-DIRGE_STUDY4_PAUSE:
-pause
-DIRGE_STUDY4:
-	match D_STUDY_STOW You believe that you understand
-	match DIRGE_STUDY5 roundtime
-	match D_STUDY_STOW You already know enough
-	match DIRGE_STUDY4_PAUSE ...wait
-	match DIRGE_STUDY4_PAUSE type ahead
-	match QUIT [You're
-	match DIRGE_STUDY4_PAUSE Encumbrance:
-	match D_STUDY_DROP so much that you can't make out any
-put study my pattern
-put encum
-	matchwait
-
-DIRGE_STUDY5_PAUSE:
-pause
-DIRGE_STUDY5:
-	match D_STUDY_STOW You believe that you understand
-	match D_STUDY_STOW roundtime
-	match D_STUDY_STOW You already know enough
-	match DIRGE_STUDY5_PAUSE ...wait
-	match DIRGE_STUDY5_PAUSE type ahead
-	match QUIT [You're
-	match DIRGE_STUDY5_PAUSE Encumbrance:
+	match DIRGE_STUDY_PAUSE Encumbrance:
 	match D_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -12191,6 +11957,7 @@ put stow my pattern
 	matchwait
 
 JUGGLE:
+if %arrived = 1 then goto %s
 IF_1 put whis group juggle
 IF_1 waitfor you
 pause 2
@@ -12209,12 +11976,13 @@ JUGGLE5:
 JUGGLE6:
 JUGGLE7:
 JUGGLE8:
+if %arrived = 1 then goto JUGGLE_STOW
 counter add 1
 JUGGLE_PAUSE1:
 	match JUGGLE_PAUSE type ahead
 	match JUGGLE_PAUSE ...wait
 	match JUGGLE%c roundtime
-	match JUGGLE9 heal
+	match JUGGLE_STOW heal
 	match JUGGLE_STAND You'd have better luck standing up.
 	match %s referring
 	match %s Please rephrase that command
@@ -12230,9 +11998,10 @@ put stand
 	matchwait
 
 JUGGLE9:
+JUGGLE_STOW:
 pause
-	match JUGGLE9 type ahead
-	match JUGGLE9 ...wait
+	match JUGGLE_STOW type ahead
+	match JUGGLE_STOW ...wait
 	match %s you put
 	match %s referring
 	match %s Stow what?
@@ -12478,36 +12247,27 @@ BRAID_FOR5:
 put stow my vine
 	matchwait
 
-BRAID_PAUSE:
-pause
 BRAID:
-	match BRAID1 roundtime
-	match BRAID_FORA You need to have
-	match BRAID_PULL The braided vines is already
-	match BRAID_PULL Better just PULL
-	match BRAID_PAUSE type ahead
-	match BRAID_PAUSE ...wait
-put braid my vine
-	matchwait
-
+counter set 0
 BRAID1:
-counter set 1
 BRAID2:
 BRAID3:
 BRAID4:
 counter add 1
 goto F_B
-BRAID2_PAUSE:
+BRAID_PAUSE:
 pause
 F_B:
 	match BRAID%c roundtime
-	match BRAID5 You need to have
+	match BRAID_FORA You need to have
 	match BRAID_PULL The braided vines is already
 	match BRAID_PULL Better just PULL
-	match BRAID2_PAUSE type ahead
-	match BRAID2_PAUSE ...wait
+	match BRAID_PULL wasted effort
+	match BRAID_PAUSE type ahead
+	match BRAID_PAUSE ...wait
 put braid my vine
 	matchwait
+
 BRAID_PULL_PAUSE:
 pause
 BRAID_PULL:
@@ -12543,8 +12303,6 @@ BRAID5:
 	match HIDE stow what?
 put stow my vines
 	matchwait
-
-
 
 GON_STONES:
 	match %s referring
@@ -21518,6 +21276,7 @@ put stand
 APP_FUN_PAUSE:
 pause
 APP_FUN:
+if %arrived = 1 then return
 getcomponent appraisal exp appraisal
 if %appraisal contains "lock" then goto APP_FUN_END
 	match APP_FUN_END Appraise what?
