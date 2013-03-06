@@ -1,71 +1,75 @@
-#######################################
-### Aveda's Amazing Braiding Script ###
-###      Last updated 6/01/2008     ###
-### http://dr.aveda.googlepages.com ###
-###                                 ###
-###     To operate, just type:      ###
-###    .braid <disposal container>  ###
-#######################################
+# Usage: .braid <disposal container>
+#	based on Aveda's Amazing Braiding Script
+#	Updated on 3/2/2013 by sproctor
 
-if_1 goto test
+if_1 goto CHECKEXP
 
 echo How to use:
 echo .braid <place you're going to stick all these ropes>
 exit
 
-test:
-	match end mind lock
-	match forage Overall state of
-	put skill ML
-	matchwait
-forage_pause:
+CHECKEXP:
+	getcomponent mech exp mechanical lore
+	if %mech contains "lock" then goto WAITEXP
+	goto BRAID
+
+FORAGE_PAUSE:
 pause
-forage:
-	match forage_pause ...wait
-	match braid You manage to find some grass.
-	match forage Roundtime:
-	match put You really need to have
+FORAGE:
+	match FORAGE_PAUSE ...wait
+	match CHECKEXP You manage to find some grass.
+	match FORAGE Roundtime:
+	match PUT You really need to have
 	put forage grass
 	matchwait
-braid_pause:
+
+BRAID_PAUSE:
 pause
-braid:
-	match braid_pause ...wait
-	match forage You need to have more material
-	match pull mistake
-	match put wasted effort.
-	match put You need both hands
-	match braid Roundtime:
+BRAID:
+	match BRAID_PAUSE ...wait
+	match FORAGE You need to have more material
+	match FORAGE You need to be holding
+	match PULL mistake
+	match PULL You fumble
+	match PUT wasted effort.
+	match PUT You need both hands
+	match CHECKEXP Roundtime:
 	put braid my grass
 	matchwait
-pull_pause:
+
+PULL_PAUSE:
 pause
-pull:
-	match forage You need to have more material
-	match pull_pause ...wait
-	match put rope
-	match put You tug
-	match put I'm afraid that you
+PULL:
+	match FORAGE You need to have more material
+	match PULL_PAUSE ...wait
+	match PUT rope
+	match PUT You tug
+	match PUT I'm afraid that you
 	put pull my grass
 	matchwait
-put_pause:
+
+PUT_PAUSE:
 pause
-put:
-	match put_pause ...wait
-	match test rope
-	match dump What were you referring to?
-	match dump I'm afraid you
+PUT:
+	match PUT_PAUSE ...wait
+	match FORAGE rope
+	match DUMP What were you referring to?
+	match DUMP I'm afraid you
 	put put my rope in %1
 	matchwait
-dump_pause:
+
+DUMP_PAUSE:
 pause
-dump:
-	match dump_pause ...wait
-	match test You drop some
-	match test What were you referring to?
-	match test You put your grass
+DUMP:
+	match DUMP_PAUSE ...wait
+	match FORAGE You drop some
+	match FORAGE What were you referring to?
+	match FORAGE You put your grass
 	put put my grass in %1
 	put put my grass in %1
 	matchwait
-end:
-echo ==========DONE==============
+
+WAITEXP:
+	echo Waiting for exp to absorb
+	pause 30
+	goto CHECKEXP
