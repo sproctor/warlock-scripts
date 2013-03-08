@@ -1,0 +1,49 @@
+goto HIDE
+
+HIDE_PAUSE:
+pause
+HIDE:
+getcomponent stealth exp stealth
+if %stealth contains "mind lock" then goto ATTACK
+match HIDE_PAUSE ...wait
+match ATTACK Roundtime
+match ATTACK already hidden
+put hide
+matchwait
+
+ATTACK_PAUSE:
+pause
+ATTACK:
+match ATTACK_PAUSE ..wait
+match ARRANGE lies still
+match ARRANGE ceases all movement
+match HIDE Roundtime
+put att
+matchwait
+
+ARRANGE_PAUSE:
+pause
+ARRANGE:
+matchre ARRANGE_DONE /begin to arrange the (\w+)/
+match ARRANGE_PAUSE ...wait
+put arr
+matchwait
+ARRANGE_DONE:
+setVariable target $1
+goto SKIN
+
+SKIN_PAUSE:
+pause
+SKIN:
+match SEARCH Roundtime
+match SKIN_PAUSE ...wait
+put skin
+matchwait
+
+SEARCH_PAUSE
+pause
+SEARCH:
+match SEARCH_PAUSE ...wait
+match HIDE You search
+put search %target
+matchwait
