@@ -1,5 +1,5 @@
 #SFtrader - Hands free trading for Crossing and Interprovince.
-debug 3
+debug 2
 put set status
 waitfor Ok.
 echo wtrader
@@ -10,22 +10,7 @@ echo
 echo ** First time use:
 echo **    .SFtrader SET <jugglies> <App1> <App2> <origami instructions name> <# of coins> <silver/bronze/copper> <instrument> <song> <mood> (name of weapon for teacher - This is used only when the master tells the teacher to "teach weapon") (skill to teach)
 echo
-STOW_START:
-match CLOSE_LEDGER You really should close your ledger
-match STOW_RIGHT You put
-match STOW_RIGHT Stow what?
-put stow left
-matchwait
-STOW_RIGHT:
-match CLOSE_LEDGER You really should close your ledger
-match STOW_DONE You put
-match STOW_DONE Stow what?
-put stow right
-matchwait
-CLOSE_LEDGER:
-put close my ledger
-goto STOW_START
-STOW_DONE:
+
 IF_1 goto %1
 ZTSET:
 IF_1 goto 1%1
@@ -172,6 +157,10 @@ MAS:
 MAST:
 MASTE:
 MASTER:
+if exists %zTjugglies && exists %zTapp1 && exists %zTapp2 && exists %zTorigami && exists %zTcoin && exists %zTcurrency && exists %zTplay && exists %zTsong && exists %zTmood then goto HAVE_SETUP
+echo You must run the initial setup before you can use this script
+exit
+HAVE_SETUP:
 goto MASTER%zTSET
 1M:
 1MA:
@@ -189,6 +178,22 @@ echo
 shift
 
 START:
+STOW_START:
+match CLOSE_LEDGER You really should close your ledger
+match STOW_RIGHT You put
+match STOW_RIGHT Stow what?
+put stow left
+matchwait
+STOW_RIGHT:
+match CLOSE_LEDGER You really should close your ledger
+match STOW_DONE You put
+match STOW_DONE Stow what?
+put stow right
+matchwait
+CLOSE_LEDGER:
+put close my ledger
+goto STOW_START
+STOW_DONE:
 put set Inac
 waitfor Ok.
 IF_1 put avoid all
@@ -21358,17 +21363,17 @@ MASTER%zTSET:
 PARTNER%zTSET:
 TEACHER%zTSET:
 %zTSET:
-setvariable zTjugglies %EZjugglies
-setvariable zTapp1 %EZapp1
-setvariable zTapp2 %EZapp2
-setvariable zTorigami %EZorigami
-setvariable zTcoin %EZcoin
-setvariable zTcurrency %EZcurrency
-setvariable zTplay %EZplay
-setvariable zTsong %EZsong
-setvariable zTmood %EZmood
-setvariable zTweapteach %EZweapteach
-setvariable zTteach %EZteach
+#setvariable zTjugglies %EZjugglies
+#setvariable zTapp1 %EZapp1
+#setvariable zTapp2 %EZapp2
+#setvariable zTorigami %EZorigami
+#setvariable zTcoin %EZcoin
+#setvariable zTcurrency %EZcurrency
+#setvariable zTplay %EZplay
+#setvariable zTsong %EZsong
+#setvariable zTmood %EZmood
+#setvariable zTweapteach %EZweapteach
+#setvariable zTteach %EZteach
 setvariable zTSET 1
 deletevariable EZjugglies
 deletevariable EZapp1
