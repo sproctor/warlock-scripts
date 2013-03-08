@@ -1,7 +1,8 @@
 # Usage: .braid <disposal container>
 #	based on Aveda's Amazing Braiding Script
-#	Updated on 3/2/2013 by sproctor
+#	Updated on 3/7/2013 by sproctor
 
+if not exists %braiditem then setVariable braiditem grass
 if_1 goto CHECKEXP
 
 echo How to use:
@@ -17,10 +18,10 @@ FORAGE_PAUSE:
 pause
 FORAGE:
 	match FORAGE_PAUSE ...wait
-	match CHECKEXP You manage to find some grass.
+	match CHECKEXP You manage to find
 	match FORAGE Roundtime:
 	match PUT You really need to have
-	put forage grass
+	put forage %braiditem
 	matchwait
 
 BRAID_PAUSE:
@@ -34,7 +35,7 @@ BRAID:
 	match PUT wasted effort.
 	match PUT You need both hands
 	match CHECKEXP Roundtime:
-	put braid my grass
+	put braid my %braiditem
 	matchwait
 
 PULL_PAUSE:
@@ -45,7 +46,7 @@ PULL:
 	match PUT rope
 	match PUT You tug
 	match PUT I'm afraid that you
-	put pull my grass
+	put pull my %braiditem
 	matchwait
 
 PUT_PAUSE:
@@ -62,11 +63,11 @@ DUMP_PAUSE:
 pause
 DUMP:
 	match DUMP_PAUSE ...wait
-	match FORAGE You drop some
+	match FORAGE You drop
 	match FORAGE What were you referring to?
-	match FORAGE You put your grass
-	put put my grass in %1
-	put put my grass in %1
+	match FORAGE You put your 
+	put put my %braiditem in %1
+	put put my %braiditem in %1
 	matchwait
 
 WAITEXP:
