@@ -17,15 +17,21 @@ ATTACK:
 match ATTACK_PAUSE ..wait
 match ARRANGE lies still
 match ARRANGE ceases all movement
+match ENGAGE close enough to attack
 match HIDE Roundtime
 put att
 matchwait
+
+ENGAGE:
+put eng
+goto HIDE
 
 ARRANGE_PAUSE:
 pause
 ARRANGE:
 matchre ARRANGE_DONE /begin to arrange the (\w+)/
 match ARRANGE_PAUSE ...wait
+match HIDE Arrange what
 put arr
 matchwait
 ARRANGE_DONE:
@@ -40,7 +46,7 @@ match SKIN_PAUSE ...wait
 put skin
 matchwait
 
-SEARCH_PAUSE
+SEARCH_PAUSE:
 pause
 SEARCH:
 match SEARCH_PAUSE ...wait
