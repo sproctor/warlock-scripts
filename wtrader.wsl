@@ -442,7 +442,7 @@ CROS_CARA:
 	echo
 	match NEED_MONEYC don't have enough money
 	match CROSS pay the clerk
-	match CROSS the clerk says.
+	match CROSS clerk says
 put rent caravan
 	match QUIT [You're
 	matchwait
@@ -453,7 +453,7 @@ LETH_CARA:
 	echo
 	match NEED_MONEY don't have enough money
 	match LETH pay the clerk
-	match LETH the clerk says.
+	match LETH clerk says
 put rent caravan
 	match QUIT [You're
 	matchwait
@@ -464,7 +464,7 @@ RENT_CARAVAN:
 	echo
 	match NEED_MONEY don't have enough money
 	match %s pay the clerk
-	match %s the clerk says.
+	match %s clerk says
 put rent caravan
 	match QUIT [You're
 	matchwait
@@ -7841,7 +7841,7 @@ I_SHARD_CARA:
 	echo
 	match I_NEED_MONEYS don't have enough money
 	match I_SHARD_BANK pay the clerk
-	match I_SHARD_BANK the clerk says.
+	match I_SHARD_BANK clerk says
 put rent caravan
 	match QUIT [You're
 	matchwait
@@ -7931,7 +7931,7 @@ I_RIVER_CARA:
 	echo
 	match I_NEED_MONEYR don't have enough money
 	match I_RIV_TO_BANK pay the clerk
-	match I_RIV_TO_BANK the clerk says.
+	match I_RIV_TO_BANK clerk says
 put rent caravan
 	match QUIT [You're
 	matchwait
@@ -7974,7 +7974,7 @@ I_CROS_CARA:
 	echo
 	match I_NEED_MONEYC don't have enough money
 	match I_CROSS_TO_BANK pay the clerk
-	match I_CROSS_TO_BANK the clerk says.
+	match I_CROSS_TO_BANK clerk says
 put rent caravan
 	match QUIT [You're
 	matchwait
