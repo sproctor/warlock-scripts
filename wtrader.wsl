@@ -6750,7 +6750,7 @@ AT_STONE:
 	echo
 	match AT_STONE_PAUSE ...wait
 	match AT_STONE_PAUSE type ahead
-	match AT_STONE2 You pass on the order
+	match CLIMB_TRAIL_CHECK You pass on the order
 put tell caravan follow
 	match QUIT [You're
 	matchwait
@@ -6859,7 +6859,7 @@ put stand
 	matchwait
 
 CLIMB_TRAIL_CHECK:
-	match AT_STONE21 Northern Trade Road, Foothills
+	match AT_STONE22 Northern Trade Road, Foothills
 	match CLIMB_TRAIL_PAUSE Foothills, Stony Incline
 	match AT_STONE22 following you
 put look
@@ -11262,7 +11262,7 @@ DES_CHECK:
 	match %s North Road, Ferry
 	match %s North Roads Caravansary
 	match %s Southern Trade Route, Outside Leth Deriel
-	match %s Lairocott Brach, Entrance
+	match %s Northern Trade Road, Foothills
 	match %s Valley, Village Gate
 	match %s Northeast Wilds, Outside Northeast Gate
 	match %s Deobar Bower Gate, Esouvar Deriel
@@ -11286,6 +11286,7 @@ DES_WAIT:
 	match DES_CHECK YOU HAVE BEEN IDLE
 	match LISTEN you must LISTEN
 	match %s having arrived at its destination.
+	match %s Your driver stops and looks around for a moment with a puzzled look on his face.
 	match QUIT [You're
 	matchwait
 
