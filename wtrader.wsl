@@ -1,5 +1,5 @@
 #SFtrader - Hands free trading for Crossing and Interprovince.
-debug 2
+debuglevel 50
 put set status
 waitfor Ok.
 echo wtrader
@@ -365,8 +365,6 @@ IF_1 put whis group go
 	echo
 	echo BEGIN:
 	echo
-	match HOME_IN Malific's Home
-	match HOME_OUT Willow Walk, Garden Path
 	match DIRGE_ROAD North Roads Caravansary
 	match DIRGE_BANK_OUT Dirge, Crossroads
 	match DIRGE_BANK_IN Dirge, Traveller's Bank
@@ -396,45 +394,14 @@ IF_1 put whis group go
 	match LETH_BANK_IN2 Imperial Depository, Foreign Branch
 	match LETH_OUT Leth Deriel, Oakenheart Circle
 	match LETH_IN Eshar's Trading Post, Main Room
-Put look
 	match QUIT [You're
+    match UNKNOWN_LOCATION obvious paths
+Put look
 	matchwait
 
-HOME_IN:
-put stand
-wait
-put unlock door
-wait
-put open door
-wait
-move go door
-put close red cot
-wait
-put lock red cot
-wait
-HOME_OUT:
-move w
-put w
-move w
-put w
-move go gate
-put s
-move e
-put s
-move w
-put w
-move s
-put s
-move s
-put s
-move s
-put s
-move se
-put go bank
-move go wind
-put with %zTcoin %zTcurrency
-wait
-goto CROSS_BANK_IN3
+UNKNOWN_LOCATION:
+echo Unknown location, please move to a trading post or bank
+exit
 
 CROS_CARA:
 	echo
@@ -1297,7 +1264,8 @@ put tell caravan go fast
 waitfor you
 put tell caravan lead to arthe dale
 waitfor you
-action setVariable arrived 1 when Vally, Village Gate
+unsetvar arrived
+addtextlistener arrived "Valley, Village Gate"
 save AT_ARTHE_CROSS
 counter set 5
 goto PATTERN
@@ -4683,10 +4651,8 @@ put stand
 	matchwait
 
 FERRY_JUGGLE:
-setvariable arrived 0
-action instant setvariable arrived 1 when its crew ties the ferry off
-action instant setvariable arrived 1 when pulls up to the dock
-action instant setvariable arrived 1 when A great clanging bell
+unsetvar arrived
+addTextListenerRe arrived /(its crew ties the ferry off|pulls up to the dock|A great clanging bell)/i
 IF_1 put belch
 pause 2
 IF_1 put whis group app hide
@@ -4707,7 +4673,7 @@ FERRY_JUGGLE6:
 FERRY_JUGGLE7:
 counter add 1
 FERRY_JUGGLE_PAUSE1:
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match FERRY_JUGGLE_PAUSE type ahead
 	match FERRY_JUGGLE_PAUSE ...wait
 	match FERRY_JUGGLE%c roundtime
@@ -4739,7 +4705,7 @@ wait
 IF_2 goto FERRY_APP_HIDE
 IF_1 goto APP_FERRY
 FERRY_APP_HIDE:
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	echo
 	echo FERRY_APP_HIDE:
 	echo
@@ -4786,7 +4752,7 @@ IF_1 put nod
 IF_1 pause
 IF_1 put whisper group ferry
 IF_1 waitfor whisper
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	echo
 	echo FERRY1:
 	echo
@@ -4814,9 +4780,9 @@ WAIT_FERRY:
 APP_FERRY:
 counter set 0
 APP_FERRY_CONT:
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 gosub APP_FUN %zTapp1
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 gosub APP_FUN %zTapp2
 counter add 1
 if %c < 3 then goto APP_FERRY_CONT
@@ -4824,7 +4790,7 @@ if %c < 3 then goto APP_FERRY_CONT
 FERRY_CLOSE_PAUSE:
 pause
 FERRY_CLOSE:
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match STUDY_FERRY close
 	match STUDY_FERRY referring
 	match FERRY_CLOSE_PAUSE ...wait
@@ -4834,7 +4800,7 @@ put close my gem pouch
 	matchwait
 
 STUDY_FERRY:
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match PATTERN_FERRY referring
 	match STUDY_COM1_FERRY you get
 	match STUDY_COM1_FERRY you open
@@ -4845,7 +4811,7 @@ put open my compendium
 
 STUDY_COM1_TURN_FERRY:
 pause
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match STUDY_COM1_TURN_FERRY ...wait
 	match STUDY_COM1_TURN_FERRY type ahead
 	match STUDY_COM1_FERRY You turn to the section containing
@@ -4859,7 +4825,7 @@ STUDY_COM1_FERRY:
 echo
 echo STUDY_COM1_FERRY:
 echo
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match STUDY_COM2_TURN_FERRY Why do you need to study this chart again?
 	match STUDY_COM2_TURN_FERRY sudden moment of clarity
 	match STUDY_COM5_TURN_FERRY difficult time
@@ -4873,7 +4839,7 @@ put study my compendium
 
 STUDY_COM2_TURN_FERRY:
 pause
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match STUDY_COM2_TURN_FERRY ...wait
 	match STUDY_COM2_TURN_FERRY type ahead
 	match STUDY_COM2_FERRY You turn to the section containing
@@ -4887,7 +4853,7 @@ STUDY_COM2_FERRY:
 echo
 echo STUDY_COM2_FERRY:
 echo
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match STUDY_COM3_TURN_FERRY Why do you need to study this chart again?
 	match STUDY_COM3_TURN_FERRY sudden moment of clarity
 	match STUDY_COM_STOW_FERRY difficult time
@@ -4914,7 +4880,7 @@ STUDY_COM3_FERRY:
 echo
 echo STUDY_COM3_FERRY:
 echo
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match STUDY_COM4_TURN_FERRY Why do you need to study this chart again?
 	match STUDY_COM4_TURN_FERRY sudden moment of clarity
 	match STUDY_COM_STOW_FERRY difficult time
@@ -4941,7 +4907,7 @@ STUDY_COM4_FERRY:
 echo
 echo STUDY_COM4_FERRY:
 echo
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match STUDY_COM5_TURN_FERRY Why do you need to study this chart again?
 	match STUDY_COM5_TURN_FERRY sudden moment of clarity
 	match STUDY_COM_STOW_FERRY difficult time
@@ -4968,7 +4934,7 @@ STUDY_COM5_FERRY:
 echo
 echo STUDY_COM5_FERRY:
 echo
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match STUDY_COM_STOW_FERRY Why do you need to study this chart again?
 	match STUDY_COM_STOW_FERRY sudden moment of clarity
 	match STUDY_COM_STOW_FERRY difficult time
@@ -5012,7 +4978,7 @@ put get my pattern
 STUDY1_PAUSE_FERRY:
 pause
 STUDY1_FERRY:
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match STUDY_STOW_FERRY You believe that you understand
 	match STUDY2_FERRY roundtime
 	match STUDY_STOW_FERRY You already know enough
@@ -5020,7 +4986,7 @@ if %arrived = 1 then goto OFF_FERRY
 	match STUDY1_PAUSE_FERRY ...wait
 	match STUDY1_PAUSE_FERRY type ahead
 	match QUIT [You're
-	match STUDY2_PAUSE_FERRY Encumbrance:
+	match STUDY2_PAUSE_FERRY Encumbrance
 	match STUDY_DROP_FERRY so much that you can't make out any
 put study my pattern
 put encum
@@ -5029,14 +4995,14 @@ put encum
 STUDY2_PAUSE_FERRY:
 pause
 STUDY2_FERRY:
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match STUDY_STOW_FERRY You believe that you understand
 	match STUDY3_FERRY roundtime
 	match STUDY_STOW_FERRY You already know enough
 	match STUDY2_PAUSE_FERRY ...wait
 	match STUDY2_PAUSE_FERRY type ahead
 	match QUIT [You're
-	match STUDY3_PAUSE_FERRY Encumbrance:
+	match STUDY3_PAUSE_FERRY Encumbrance
 	match STUDY_DROP_FERRY so much that you can't make out any
 put study my pattern
 put encum
@@ -5045,14 +5011,14 @@ put encum
 STUDY3_PAUSE_FERRY:
 pause
 STUDY3_FERRY:
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match STUDY_STOW_FERRY You believe that you understand
 	match STUDY4_FERRY roundtime
 	match STUDY_STOW_FERRY You already know enough
 	match STUDY3_PAUSE_FERRY ...wait
 	match STUDY3_PAUSE_FERRY type ahead
 	match QUIT [You're
-	match STUDY4_PAUSE_FERRY Encumbrance:
+	match STUDY4_PAUSE_FERRY Encumbrance
 	match STUDY_DROP_FERRY so much that you can't make out any
 put study my pattern
 put encum
@@ -5061,14 +5027,14 @@ put encum
 STUDY4_PAUSE_FERRY:
 pause
 STUDY4_FERRY:
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match STUDY_STOW_FERRY You believe that you understand
 	match STUDY5_FERRY roundtime
 	match STUDY_STOW_FERRY You already know enough
 	match STUDY4_PAUSE_FERRY ...wait
 	match STUDY4_PAUSE_FERRY type ahead
 	match QUIT [You're
-	match STUDY5_PAUSE_FERRY Encumbrance:
+	match STUDY5_PAUSE_FERRY Encumbrance
 	match STUDY_DROP_FERRY so much that you can't make out any
 put study my pattern
 put encum
@@ -5077,14 +5043,14 @@ put encum
 STUDY5_PAUSE_FERRY:
 pause
 STUDY5_FERRY:
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match STUDY_STOW_FERRY You believe that you understand
 	match STUDY_STOW_FERRY roundtime
 	match STUDY_STOW_FERRY You already know enough
 	match STUDY5_PAUSE_FERRY ...wait
 	match STUDY5_PAUSE_FERRY type ahead
 	match QUIT [You're
-	match STUDY_STOW_PAUSE_FERRY Encumbrance:
+	match STUDY_STOW_PAUSE_FERRY Encumbrance
 	match STUDY_DROP_FERRY so much that you can't make out any
 put study my pattern
 put encum
@@ -5113,7 +5079,7 @@ put stow my pattern
 FERRY_2_PAUSE:
 pause
 FERRY_2:
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	echo
 	echo FERRY_2:
 	echo
@@ -5128,7 +5094,7 @@ IF_1 goto WAIT_FERRY1
 WAIT_FERRYFERRY_PAUSE:
 pause
 WAIT_FERRYFERRY:
-if %arrived = 1 then goto OFF_FERRY
+if exists %arrived then goto OFF_FERRY
 	match WAIT_FERRY1 Eh?
 	match WAIT_FERRY1 You blend
 	match WAIT_FERRY1 You melt into the background
@@ -5175,7 +5141,7 @@ wait
 	match HIDE_FERRY referring
 	match HIDE_FERRY stuck here
 put go dock
-action clear
+removeTextListener arrived
 	matchwait
 
 L_FERRY:
@@ -6139,20 +6105,20 @@ AT_ARTHE:
 	echo
 	echo AT_ARTHE:
 	echo
-put tell caravan follow
-waitfor you
-move go gate
-waitfor following you
-move n
-waitfor following you
-move n
-waitfor following you
-move n
-waitfor following you
-move n
-waitfor following you
-move w
-waitfor following you
+#put tell caravan follow
+#waitfor you
+#move go gate
+#waitfor following you
+#move n
+#waitfor following you
+#move n
+#waitfor following you
+#move n
+#waitfor following you
+#move n
+#waitfor following you
+#move w
+#waitfor following you
 if_1 put knock sign
 if_1 waitfor you knock
 move go door
@@ -6646,7 +6612,7 @@ ARTHE_STUDY1:
 	match ARTHE_STUDY1_PAUSE ...wait
 	match ARTHE_STUDY1_PAUSE type ahead
 	match QUIT [You're
-	match ARTHE_STUDY1_PAUSE Encumbrance:
+	match ARTHE_STUDY1_PAUSE Encumbrance
 	match A_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -6661,7 +6627,7 @@ ARTHE_STUDY2:
 	match ARTHE_STUDY2_PAUSE ...wait
 	match ARTHE_STUDY2_PAUSE type ahead
 	match QUIT [You're
-	match ARTHE_STUDY2_PAUSE Encumbrance:
+	match ARTHE_STUDY2_PAUSE Encumbrance
 	match A_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -6676,7 +6642,7 @@ ARTHE_STUDY3:
 	match ARTHE_STUDY3_PAUSE ...wait
 	match ARTHE_STUDY3_PAUSE type ahead
 	match QUIT [You're
-	match ARTHE_STUDY3_PAUSE Encumbrance:
+	match ARTHE_STUDY3_PAUSE Encumbrance
 	match A_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -6691,7 +6657,7 @@ ARTHE_STUDY4:
 	match ARTHE_STUDY4_PAUSE ...wait
 	match ARTHE_STUDY4_PAUSE type ahead
 	match QUIT [You're
-	match ARTHE_STUDY4_PAUSE Encumbrance:
+	match ARTHE_STUDY4_PAUSE Encumbrance
 	match A_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -6706,7 +6672,7 @@ ARTHE_STUDY5:
 	match ARTHE_STUDY5_PAUSE ...wait
 	match ARTHE_STUDY5_PAUSE type ahead
 	match QUIT [You're
-	match ARTHE_STUDY5_PAUSE Encumbrance:
+	match ARTHE_STUDY5_PAUSE Encumbrance
 	match A_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -6750,7 +6716,7 @@ AT_STONE:
 	echo
 	match AT_STONE_PAUSE ...wait
 	match AT_STONE_PAUSE type ahead
-	match CLIMB_TRAIL_CHECK You pass on the order
+	match AT_STONE2 You pass on the order
 put tell caravan follow
 	match QUIT [You're
 	matchwait
@@ -6760,8 +6726,8 @@ IF_1 pause 2
 	match NOT_STONE obvious
 	match NOT_STONE1 can't go there
 	match NOT_STONE1 referring
-	match CLIMB_TRAIL Foothills, Stony Incline
-put down
+	match AT_STONE21 Northern Trade Road, Foothills
+put look
 	match QUIT [You're
 	matchwait
 
@@ -6775,99 +6741,8 @@ put tell caravan lead to stone clan
 wait
 goto HIDE
 
-
-TRAIL_STOW:
-put stow left
-wait
-put stow right
-wait
-goto CLIMB_TRAIL_PAUSE
-CLIMB_TRAIL:
-	echo
-	echo CLIMB_TRAIL:
-	echo
-waitfor following you
-
-goto CLIMB_TRAIL_PAUSE
-
-CLIMB_TRAIL_RETREAT1_PAUSE:
-pause
-CLIMB_TRAIL_RETREAT1:
-	match CLIMB_TRAIL_PAUSE You retreat from combat.
-	match CLIMB_TRAIL_PAUSE already as far
-	match CLIMB_TRAIL_RETREAT2_PAUSE roundtime
-	match CLIMB_TRAIL_RETREAT1_PAUSE ...wait
-	match CLIMB_TRAIL_RETREAT1_PAUSE type ahead
-	match CLIMB_TRAIL_RETREAT1_PAUSE You stop advancing
-	match QUIT You are still stunned
-put retreat
-put reateat
-	matchwait
-
-CLIMB_TRAIL_RETREAT2_PAUSE:
-pause
-CLIMB_TRAIL_RETREAT2:
-	match CLIMB_TRAIL_PAUSE You retreat from combat.
-	match CLIMB_TRAIL_PAUSE already as far
-	match CLIMB_TRAIL_RETREAT3_PAUSE roundtime
-	match CLIMB_TRAIL_RETREAT2_PAUSE ...wait
-	match CLIMB_TRAIL_RETREAT2_PAUSE type ahead
-	match CLIMB_TRAIL_RETREAT2_PAUSE You stop advancing
-	match QUIT You are still stunned
-put retreat
-put reateat
-	matchwait
-
-CLIMB_TRAIL_RETREAT3_PAUSE:
-pause
-CLIMB_TRAIL_RETREAT3:
-	match CLIMB_TRAIL_PAUSE You retreat from combat.
-	match CLIMB_TRAIL_PAUSE already as far
-	match QUIT roundtime
-	match CLIMB_TRAIL_RETREAT3_PAUSE ...wait
-	match CLIMB_TRAIL_RETREAT3_PAUSE type ahead
-	match CLIMB_TRAIL_RETREAT3_PAUSE You stop advancing
-	match QUIT You are still stunned
-put retreat
-put reateat
-	matchwait
-
-CLIMB_TRAIL_PAUSE_SHIFT:
-shift
-shift
-CLIMB_TRAIL_PAUSE:
-IF_1 put nod
-IF_1 waitfor you
-IF_1 put whisper group trail
-IF_1 waitfor you whisper
-	match TRAIL_STAND stand
-	match AT_STONE21 Northern Trade Road, Foothills
-	match TRAIL_STOW free
-	match CLIMB_TRAIL_CHECK .
-put climb trail
-	match CLIMB_TRAIL_RETREAT1 [You're
-	matchwait
-TRAIL_STAND_PAUSE:
-pause
-TRAIL_STAND:
-	match TRAIL_STAND_PAUSE ...wait
-	match TRAIL_STAND_PAUSE type ahead
-	match TRAIL_STAND_PAUSE roundtime
-	match CLIMB_TRAIL_PAUSE you stand
-put stand
-	match QUIT [You're
-	matchwait
-
-CLIMB_TRAIL_CHECK:
-	match AT_STONE22 Northern Trade Road, Foothills
-	match CLIMB_TRAIL_PAUSE Foothills, Stony Incline
-	match AT_STONE22 following you
-put look
-	match QUIT [You're
-	matchwait
-
 AT_STONE21:
-waitfor following you
+#waitfor following you
 IF_1 pause 2
 IF_1 put belch
 IF_1 wait
@@ -7167,8 +7042,6 @@ AT_DIRGE:
 	echo
 	echo AT_DIRGE:
 	echo
-put tell caravan follow
-waitfor you
 IF_1 put belch
 IF_1 wait
 IF_1 put nod
@@ -7195,8 +7068,8 @@ AT_DIRGE2B:
 	match NOT_DIRGE obvious
 	match NOT_DIRGE1 can't
 	match NOT_DIRGE1 referring
-	match AT_DIRGE2 Lava Fields, Narrow Trace
-put go path
+	match AT_DIRGE2 Dirge, Gateway Road
+put look
 	match QUIT [You're
 	matchwait
 
@@ -7211,31 +7084,6 @@ goto HIDE
 
 
 AT_DIRGE2:
-waitfor following you
-move e
-waitfor following you
-move ne
-waitfor following you
-move e
-waitfor following you
-move ne
-waitfor following you
-move w
-waitfor following you
-move nw
-waitfor following you
-move sw
-waitfor following you
-move w
-waitfor following you
-move n
-waitfor following you
-move n
-waitfor following you
-move n
-waitfor following you
-move go gate
-waitfor following you
 move go stable
 goto DIRGE
 
@@ -7454,36 +7302,6 @@ put stand
 
 DIRGE_TO__OUT2:
 IF_1 pause
-put tell caravan follow
-waitfor you
-put tell caravan go fast
-waitfor you
-move go gate
-waitfor following you
-move s
-waitfor following you
-move s
-waitfor following you
-move s
-waitfor following you
-move e
-waitfor following you
-move ne
-waitfor following you
-move se
-waitfor following you
-move e
-waitfor following you
-move sw
-waitfor following you
-move w
-waitfor following you
-move sw
-waitfor following you
-move w
-waitfor following you
-move go road
-waitfor following you
 goto %s
 
 
@@ -7795,8 +7613,6 @@ I_BEGIN:
 	echo
 	echo I_BEGIN:
 	echo
-	match I_HOME_IN Malific's Home
-	match I_HOME_OUT Willow Walk, Garden Path
 	match I_CROSS_GATE Northeast Wilds, Outside Northeast Gate
 	match I_CROSS_BANK_OUT The Crossing, Hodierna Way
 	match I_CROSS_BANK_IN First Provincial Bank
@@ -7978,40 +7794,6 @@ I_CROS_CARA:
 put rent caravan
 	match QUIT [You're
 	matchwait
-
-I_HOME_IN:
-put stand
-wait
-put unlock door
-wait
-put open door
-wait
-move go door
-put close red cot
-wait
-put lock red cot
-wait
-I_HOME_OUT:
-move w
-put w
-move w
-put w
-move go gate
-put s
-move e
-put s
-move w
-put w
-move s
-put s
-move s
-put s
-move s
-put s
-move se
-put go bank
-move go wind
-goto I_CROSS_BANK_IN2
 
 I_NEED_MONEYC:
 move e
@@ -11230,7 +11012,7 @@ pause
 HIDE:
 IF_1 put whisper group hide
 IF_2 goto HIDE_TEACH
-goto HIDE_TEACH1:
+goto HIDE_TEACH1
 HIDE_TEACH:
 IF_2 pause 2
 IF_2 put listen to %2
@@ -11259,14 +11041,16 @@ put hide
 
 DES_CHECK:
 	match %s stable as a faenrae reaver on samatak
+    match %s Arthe Dale, Cul-de-sac
 	match %s North Road, Ferry
 	match %s North Roads Caravansary
 	match %s Southern Trade Route, Outside Leth Deriel
-	match %s Northern Trade Road, Foothills
+	match %s Lairocott Brach, Entrance
 	match %s Valley, Village Gate
 	match %s Northeast Wilds, Outside Northeast Gate
 	match %s Deobar Bower Gate, Esouvar Deriel
 	match %s Southern Trade Route, Segoltha Plain
+    match %s The Crossing, Commerce Avenue
 	match DES_WAIT obvious
 put look
 	match QUIT [You're
@@ -11285,8 +11069,8 @@ DES_WAIT:
 	match TIP accept tip
 	match DES_CHECK YOU HAVE BEEN IDLE
 	match LISTEN you must LISTEN
+    match %s Your driver stops and looks around for a moment with a puzzled look on his face.
 	match %s having arrived at its destination.
-	match %s Your driver stops and looks around for a moment with a puzzled look on his face.
 	match QUIT [You're
 	matchwait
 
@@ -11603,6 +11387,7 @@ counter add 1
 	match ORI_STUDY%c You turn the instructions this way and that
 	match GET_PRIMER You take on a studious look.
 	match GET_PRIMER You study the sky
+    match GET_PRIMER study what
 	match FOLD1 and begin to fold
 	match ORI_STUDY_PAUSE ...wait
 	match ORI_STUDY_PAUSE type ahead
@@ -11741,14 +11526,15 @@ put stow my paper
 
 
 PATTERN:
-setVariable arrived 0
+unsetvar arrived
+if exists %arrived then echo variable arrived is set when it shouldn't be
 gosub APP_FUN %zTapp1
 gosub APP_FUN %zTapp2
 gosub APP_FUN %zTapp1
 gosub APP_FUN %zTapp2
 gosub APP_FUN %zTapp1
 gosub APP_FUN %zTapp2
-if %arrived = 1 then goto %s
+if exists %arrived then goto %s
 PATTERN_GET_COM_PAUSE:
 pause
 IF_1 put whis group study
@@ -11915,8 +11701,8 @@ put stow my compendium
 
 PATTERN1:
 pause
-if %arrived = 1 then goto %s
-setVariable
+var study_count 0
+if exists %arrived then goto %s
 	match JUGGLE referring
 	match DIRGE_STUDY you get
 	match QUIT [You're
@@ -11926,9 +11712,9 @@ put get my pattern
 DIRGE_STUDY_PAUSE:
 pause
 DIRGE_STUDY:
-if %arrived = 1 then goto D_STUDY_STOW
+if exists %arrived then goto D_STUDY_STOW
 if %study_count = 5 then goto D_STUDY_STOW
-math study_count add 1
+var study_count %{study_count + 1}
 	match D_STUDY_STOW You believe that you understand
 	match DIRGE_STUDY roundtime
 	match D_STUDY_STOW You already know enough
@@ -11936,7 +11722,7 @@ math study_count add 1
 	match DIRGE_STUDY_PAUSE ...wait
 	match DIRGE_STUDY_PAUSE type ahead
 	match QUIT [You're
-	match DIRGE_STUDY_PAUSE Encumbrance:
+	match DIRGE_STUDY_PAUSE Encumbrance
 	match D_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -11963,7 +11749,7 @@ put stow my pattern
 	matchwait
 
 JUGGLE:
-if %arrived = 1 then goto %s
+if exists %arrived then goto %s
 IF_1 put whis group juggle
 IF_1 waitfor you
 pause 2
@@ -11982,7 +11768,7 @@ JUGGLE5:
 JUGGLE6:
 JUGGLE7:
 JUGGLE8:
-if %arrived = 1 then goto JUGGLE_STOW
+if exists %arrived then goto JUGGLE_STOW
 counter add 1
 JUGGLE_PAUSE1:
 	match JUGGLE_PAUSE type ahead
@@ -12993,7 +12779,7 @@ I_STUDY1:
 	match I_STUDY1_PAUSE ...wait
 	match I_STUDY1_PAUSE type ahead
 	match QUIT [You're
-	match I_STUDY1_PAUSE Encumbrance:
+	match I_STUDY1_PAUSE Encumbrance
 	match I_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -13008,7 +12794,7 @@ I_STUDY2:
 	match I_STUDY2_PAUSE ...wait
 	match I_STUDY2_PAUSE type ahead
 	match QUIT [You're
-	match I_STUDY2_PAUSE Encumbrance:
+	match I_STUDY2_PAUSE Encumbrance
 	match I_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -13023,7 +12809,7 @@ I_STUDY3:
 	match I_STUDY3_PAUSE ...wait
 	match I_STUDY3_PAUSE type ahead
 	match QUIT [You're
-	match I_STUDY3_PAUSE Encumbrance:
+	match I_STUDY3_PAUSE Encumbrance
 	match I_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -13038,7 +12824,7 @@ I_STUDY4:
 	match I_STUDY4_PAUSE ...wait
 	match I_STUDY4_PAUSE type ahead
 	match QUIT [You're
-	match I_STUDY4_PAUSE Encumbrance:
+	match I_STUDY4_PAUSE Encumbrance
 	match I_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -13053,7 +12839,7 @@ I_STUDY5:
 	match I_STUDY5_PAUSE ...wait
 	match I_STUDY5_PAUSE type ahead
 	match QUIT [You're
-	match I_STUDY5_PAUSE Encumbrance:
+	match I_STUDY5_PAUSE Encumbrance
 	match I_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -14166,7 +13952,7 @@ T_STUDY1:
 	match T_STUDY1_PAUSE ...wait
 	match T_STUDY1_PAUSE type ahead
 	match T_QUIT [You're
-	match T_STUDY1_PAUSE Encumbrance:
+	match T_STUDY1_PAUSE Encumbrance
 	match T_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -14181,7 +13967,7 @@ T_STUDY2:
 	match T_STUDY2_PAUSE ...wait
 	match T_STUDY2_PAUSE type ahead
 	match T_QUIT [You're
-	match T_STUDY2_PAUSE Encumbrance:
+	match T_STUDY2_PAUSE Encumbrance
 	match T_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -14196,7 +13982,7 @@ T_STUDY3:
 	match T_STUDY3_PAUSE ...wait
 	match T_STUDY3_PAUSE type ahead
 	match T_QUIT [You're
-	match T_STUDY3_PAUSE Encumbrance:
+	match T_STUDY3_PAUSE Encumbrance
 	match T_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -14211,7 +13997,7 @@ T_STUDY4:
 	match T_STUDY4_PAUSE ...wait
 	match T_STUDY4_PAUSE type ahead
 	match T_QUIT [You're
-	match T_STUDY4_PAUSE Encumbrance:
+	match T_STUDY4_PAUSE Encumbrance
 	match T_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -14226,7 +14012,7 @@ T_STUDY5:
 	match T_STUDY5_PAUSE ...wait
 	match T_STUDY5_PAUSE type ahead
 	match T_QUIT [You're
-	match T_STUDY5_PAUSE Encumbrance:
+	match T_STUDY5_PAUSE Encumbrance
 	match T_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -14389,7 +14175,7 @@ T_STUDY1_APP:
 	match T_STUDY1_PAUSE_APP ...wait
 	match T_STUDY1_PAUSE_APP type ahead
 	match T_QUIT [You're
-	match T_STUDY1_PAUSE_APP Encumbrance:
+	match T_STUDY1_PAUSE_APP Encumbrance
 	match T_STUDY_STOW_APP so much that you can't make out any
 put study my pattern
 put encum
@@ -14404,7 +14190,7 @@ T_STUDY2_APP:
 	match T_STUDY2_PAUSE_APP ...wait
 	match T_STUDY2_PAUSE_APP type ahead
 	match T_QUIT [You're
-	match T_STUDY2_PAUSE_APP Encumbrance:
+	match T_STUDY2_PAUSE_APP Encumbrance
 	match T_STUDY_STOW_APP so much that you can't make out any
 put study my pattern
 put encum
@@ -14419,7 +14205,7 @@ T_STUDY3_APP:
 	match T_STUDY3_PAUSE_APP ...wait
 	match T_STUDY3_PAUSE_APP type ahead
 	match T_QUIT [You're
-	match T_STUDY3_PAUSE_APP Encumbrance:
+	match T_STUDY3_PAUSE_APP Encumbrance
 	match T_STUDY_STOW_APP so much that you can't make out any
 put study my pattern
 put encum
@@ -14434,7 +14220,7 @@ T_STUDY4_APP:
 	match T_STUDY4_PAUSE_APP ...wait
 	match T_STUDY4_PAUSE_APP type ahead
 	match T_QUIT [You're
-	match T_STUDY4_PAUSE_APP Encumbrance:
+	match T_STUDY4_PAUSE_APP Encumbrance
 	match T_STUDY_STOW_APP so much that you can't make out any
 put study my pattern
 put encum
@@ -14449,7 +14235,7 @@ T_STUDY5_APP:
 	match T_STUDY5_PAUSE_APP ...wait
 	match T_STUDY5_PAUSE_APP type ahead
 	match T_QUIT [You're
-	match T_STUDY5_PAUSE_APP Encumbrance:
+	match T_STUDY5_PAUSE_APP Encumbrance
 	match T_STUDY_STOW_APP so much that you can't make out any
 put study my pattern
 put encum
@@ -15441,7 +15227,7 @@ P_STUDY1:
 	match P_STUDY1_PAUSE ...wait
 	match P_STUDY1_PAUSE type ahead
 	match P_QUIT [You're
-	match P_STUDY1_PAUSE Encumbrance:
+	match P_STUDY1_PAUSE Encumbrance
 	match P_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -15456,7 +15242,7 @@ P_STUDY2:
 	match P_STUDY2_PAUSE ...wait
 	match P_STUDY2_PAUSE type ahead
 	match P_QUIT [You're
-	match P_STUDY2_PAUSE Encumbrance:
+	match P_STUDY2_PAUSE Encumbrance
 	match P_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -15471,7 +15257,7 @@ P_STUDY3:
 	match P_STUDY3_PAUSE ...wait
 	match P_STUDY3_PAUSE type ahead
 	match P_QUIT [You're
-	match P_STUDY3_PAUSE Encumbrance:
+	match P_STUDY3_PAUSE Encumbrance
 	match P_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -15486,7 +15272,7 @@ P_STUDY4:
 	match P_STUDY4_PAUSE ...wait
 	match P_STUDY4_PAUSE type ahead
 	match P_QUIT [You're
-	match P_STUDY4_PAUSE Encumbrance:
+	match P_STUDY4_PAUSE Encumbrance
 	match P_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -15501,7 +15287,7 @@ P_STUDY5:
 	match P_STUDY5_PAUSE ...wait
 	match P_STUDY5_PAUSE type ahead
 	match P_QUIT [You're
-	match P_STUDY5_PAUSE Encumbrance:
+	match P_STUDY5_PAUSE Encumbrance
 	match P_STUDY_DROP so much that you can't make out any
 put study my pattern
 put encum
@@ -15707,7 +15493,7 @@ P_STUDY1_APP:
 	match P_STUDY1_PAUSE_APP ...wait
 	match P_STUDY1_PAUSE_APP type ahead
 	match P_QUIT [You're
-	match P_STUDY1_PAUSE_APP Encumbrance:
+	match P_STUDY1_PAUSE_APP Encumbrance
 	match P_STUDY_STOW_APP so much that you can't make out any
 put study my pattern
 put encum
@@ -15722,7 +15508,7 @@ P_STUDY2_APP:
 	match P_STUDY2_PAUSE_APP ...wait
 	match P_STUDY2_PAUSE_APP type ahead
 	match P_QUIT [You're
-	match P_STUDY2_PAUSE_APP Encumbrance:
+	match P_STUDY2_PAUSE_APP Encumbrance
 	match P_STUDY_STOW_APP so much that you can't make out any
 put study my pattern
 put encum
@@ -15737,7 +15523,7 @@ P_STUDY3_APP:
 	match P_STUDY3_PAUSE_APP ...wait
 	match P_STUDY3_PAUSE_APP type ahead
 	match P_QUIT [You're
-	match P_STUDY3_PAUSE_APP Encumbrance:
+	match P_STUDY3_PAUSE_APP Encumbrance
 	match P_STUDY_STOW_APP so much that you can't make out any
 put study my pattern
 put encum
@@ -15752,7 +15538,7 @@ P_STUDY4_APP:
 	match P_STUDY4_PAUSE_APP ...wait
 	match P_STUDY4_PAUSE_APP type ahead
 	match P_QUIT [You're
-	match P_STUDY4_PAUSE_APP Encumbrance:
+	match P_STUDY4_PAUSE_APP Encumbrance
 	match P_STUDY_STOW_APP so much that you can't make out any
 put study my pattern
 put encum
@@ -15767,7 +15553,7 @@ P_STUDY5_APP:
 	match P_STUDY5_PAUSE_APP ...wait
 	match P_STUDY5_PAUSE_APP type ahead
 	match P_QUIT [You're
-	match P_STUDY5_PAUSE_APP Encumbrance:
+	match P_STUDY5_PAUSE_APP Encumbrance
 	match P_STUDY_STOW_APP so much that you can't make out any
 put study my pattern
 put encum
@@ -16448,7 +16234,7 @@ F_HAVE_CARA:
 	echo
 put tell caravan to follow
 waitfor you
-	match F_AT_DIRGE North Roads Caravansary
+	match F_AT_DIRGE Dirge, Gateway Road
 	match F_DIRGE_BANK_OUT_CARA Dirge, Crossroads
 	match F_DIRGE_OUT Dirge, Gateway Road
 	match F_AT_STONE Lairocott Brach, Entrance
@@ -16860,12 +16646,6 @@ echo ** ROUTE COMPLETE! **
 echo *********************
 echo
 put bala
-wait
-put get my bank book
-wait
-put read my bank book
-wait
-put stow my bank book
 exit
 
 FFFF:
@@ -16875,12 +16655,6 @@ echo ** ROUTE COMPLETE! **
 echo *********************
 echo
 put bala
-wait
-put get my bank book
-wait
-put read my bank book
-wait
-put stow my bank book
 move out
 move out
 move nw
@@ -20019,10 +19793,11 @@ F_LETH_LOOK:
 	echo
 	echo F_LETH_LOOK:
 	echo
+    match F_LETH Leth Deriel, Oakenheart Circle
 	match F_TO_CROSS_FERRY1 Southern Trade Route, Segoltha Plain
 	match F_TO_CROSS_FERRY Southern Trade Route, Segoltha South Bank
 	match F_AT_LETH Southern Trade Route, Outside Leth Deriel
-	match F_LETH_DES_WAIT obvious
+	match F_LETH_DES_WAIT obvious paths
 put look
 	match F_QUIT [You're
 	matchwait
@@ -20107,6 +19882,7 @@ F_LETH:
 	echo
 F_LETH1:
 	match F_LETH_GIVE_CON you get
+    match F_LETH_GIVE_CON you are already holding
 	match F_OUT_LETH referring
 put get my leth contract
 	match F_QUIT [You're
@@ -20986,9 +20762,6 @@ wait
 goto F_HIDE
 
 F_AT_DIRGE:
-	echo
-	echo F_AT_DIRGE:
-	echo
 put tell caravan follow
 waitfor you
 put rem my feedbag
@@ -20997,58 +20770,7 @@ put give cara
 waitfor driver
 put wear my feedbag
 wait
-goto F_AT_DIRGE2B
-
-F_AT_DIRGE2B_SHIFT:
-shift
-shift
-F_AT_DIRGE2B:
-	match F_NOT_DIRGE obvious
-	match F_NOT_DIRGE1 can't
-	match F_NOT_DIRGE1 referring
-	match F_AT_DIRGE2 Lava Fields, Narrow Trace
-put go path
-	match F_QUIT [You're
-	matchwait
-
-F_NOT_DIRGE:
-waitfor following you
-put go path
-waitfor following you
-F_NOT_DIRGE1:
-put tell caravan lead to dirge
-wait
-goto F_HIDE
-
-
-F_AT_DIRGE2:
-waitfor following you
-move e
-waitfor following you
-move ne
-waitfor following you
-move e
-waitfor following you
-move ne
-waitfor following you
-move w
-waitfor following you
-move nw
-waitfor following you
-move sw
-waitfor following you
-move w
-waitfor following you
-move n
-waitfor following you
-move n
-waitfor following you
-move n
-waitfor following you
-move go gate
-waitfor following you
-move go stable
-goto F_DIRGE
+goto F_DIRGE_OUT
 
 F_DIRGE_BANK_IN:
 move out
@@ -21087,9 +20809,10 @@ F_DIRGE:
 	echo
 F_DIRGE1:
 	match F_DIRGE_GIVE_CON you get
+	match F_DIRGE_GIVE_CON you are already holding that
 	match F_DIRGE_STONE_CHECK referring
-put get my dirge contract
 	match F_QUIT [You're
+put get my dirge contract
 	matchwait
 
 F_DIRGE_GIVE_CON:
@@ -21242,7 +20965,7 @@ put hide
 	matchwait
 
 F_DES_CHECK:
-	match F_AT_DIRGE North Roads Caravansary
+	match F_AT_DIRGE Dirge, Gateway Road
 	match F_AT_STONE Lairocott Brach, Entrance
 	match F_AT_LETH Alder Bower Gate
 	match F_AT_ARTHE Valley, Village Gate
@@ -21282,14 +21005,13 @@ put stand
 APP_FUN_PAUSE:
 pause
 APP_FUN:
-if %arrived = 1 then return
-getcomponent appraisal exp appraisal
-if %appraisal contains "lock" then goto APP_FUN_END
+if exists %arrived then return
+if %components["exp Appraisal"] contains "lock" then return
 	match APP_FUN_END Appraise what?
 	matchre APP_FUN_END /roundtime|inside something|can't appraise/i
 	match APP_FUN_PAUSE ...wait
 	match APP_FUN_PAUSE type ahead
-put app my $1 careful
+put app my %arg1 careful
 	match QUIT [You're
 	matchwait
 APP_FUN_END:
