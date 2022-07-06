@@ -1,0 +1,38 @@
+var crd_mana 3
+debuglevel 10
+
+if not exists %guild then gosub check_guild
+if_1 goto start
+echo Usage: hunt <critter1> <critter2> ... <critterN>
+exit
+
+start:
+if_1 goto start_fight
+echo No more targets
+exit
+
+start_fight:
+put engage %1
+shift
+
+fight:
+put prep crd %crd_mana
+put target
+match cast_crd Your formation of a targeting
+matchwait
+cast_crd: put cast
+pause
+goto fight
+
+
+check_guild:
+match cg_trader Trader
+match unrecognized_guild debt
+put info
+matchwait
+cg_trader:
+setVariable guild trader
+return
+unrecognized_guild:
+echo This script does not support your guild
+exit
