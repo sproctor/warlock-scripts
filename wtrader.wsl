@@ -1,5 +1,5 @@
 #SFtrader - Hands free trading for Crossing and Interprovince.
-debuglevel 50
+debuglevel 10
 put set status
 waitfor Ok.
 echo wtrader
@@ -306,8 +306,7 @@ HAVE_CARA_NEXT:
 	match CLIMB_TRAIL_PAUSE Foothills, Stony Incline
 	match AT_ARTHE_CROSS Valley, Village Gate
 	match ARTHE_OUT Arthe Dale, Cul-de-sac
-	match AT_CROSS Northeast Wilds, Outside Northeast Gate
-	match CROSS_OUT The Crossing, Commerce Avenue
+	match AT_CROSS The Crossing, Commerce Avenue
 	match WOLF_OUT Wolf Clan Home, Dirt Road
 	match TIGER_OUT Tiger Clan Home, Dirt Pathway
 	match GO_FERRY_CARA The Crossing, Alfren's Ferry
@@ -485,182 +484,6 @@ AT_CROSS:
 	echo
 	echo AT_CROSS:
 	echo
-put tell caravan follow
-waitfor you
-IF_1 move e
-IF_1 waitfor following you
-IF_1 put belch
-IF_1 wait
-IF_1 put nod
-IF_1 pause 2
-IF_1 put whisper group feed
-put rem my feedbag
-wait
-put give cara
-waitfor driver
-put wear my feedbag
-wait
-	IF_1 match AT_CROSS_F group, "ready
-	IF_1 match AT_CROSS_F_SHIFT YOU HAVE BEEN IDLE TOO LONG. PLEASE RESPOND.
-	IF_1 match QUIT [You're
-IF_1 put whisper group done
-	IF_1 matchwait
-
-goto AT_CROSS_F
-AT_CROSS_F_SHIFT:
-IF_1 shift
-IF_1 goto AT_CROSS_F_SHIFT
-
-AT_CROSS_F:
-IF_1 move w
-IF_1 waitfor following you
-	match NOT_CROSS obvious
-	match NOT_CROSS1 can't
-	match NOT_CROSS1 referring
-	match AT_CROSS2 The Crossing, Northeast Customs
-put go gate
-	match QUIT [You're
-	matchwait
-
-NOT_CROSS:
-waitfor following you
-put go gate
-waitfor following you
-NOT_CROSS1:
-put tell caravan lead to crossing
-waitfor you
-goto HIDE
-
-
-AT_CROSS2:
-waitfor following you
-IF_1 goto NE_GATE_CLIMB_DONE
-NE_GATE_CLIMB:
-put tell caravan to wait
-wait
-put go gate
-put climb wall
-CLIMB1_PAUSE:
-pause
-	match CLIMB1_PAUSE roundtime
-	match CLIMB1_PAUSE ...wait
-	match CLIMB1_PAUSE type ahead
-	match CLIMB1 you stand
-	match CLIMB1 already standing
-	match QUIT [You're
-put stand
-	matchwait
-CLIMB1:
-move go gate
-move w
-move go stair
-put climb embrasure
-CLIMB2_PAUSE:
-pause
-	match CLIMB2_PAUSE roundtime
-	match CLIMB2_PAUSE ...wait
-	match CLIMB2_PAUSE type ahead
-	match CLIMB2 you stand
-	match CLIMB2 already standing
-	match QUIT [You're
-put stand
-	matchwait
-CLIMB2:
-	match CLIMB2B You can't go there.
-	match CLIMB3_PAUSE a break in the crenellation
-	match CLIMB2_PAUSE ...wait
-put s
-	matchwait
-CLIMB2B:
-move go gate
-move w
-move go stair
-move s
-CLIMB3_PAUSE:
-pause
-	match CLIMB3_PAUSE roundtime
-	match CLIMB3_PAUSE ...wait
-	match CLIMB3_PAUSE type ahead
-	match CLIMB3 you stand
-	match CLIMB3 already standing
-	match QUIT [You're
-put stand
-	matchwait
-CLIMB3:
-move n
-move go stair
-move e
-move go gate
-move go footp
-put climb wall
-CLIMB4_PAUSE:
-pause 2
-	match CLIMB4_PAUSE roundtime
-	match CLIMB4_PAUSE ...wait
-	match CLIMB4_PAUSE type ahead
-	match CLIMB4 you stand
-	match CLIMB4 already standing
-	match QUIT [You're
-put stand
-	matchwait
-CLIMB4:
-	match CLIMB4B stone stairway
-	match CLIMB4_DONE Outside Northeast
-	match CLIMB4_PAUSE ...wait
-put n
-	matchwait
-CLIMB4B:
-move go stair
-move east
-goto CLIMB4_DONE2
-CLIMB4_DONE:
-move go gate
-CLIMB4_DONE2:
-put tell caravan follow
-wait
-NE_GATE_CLIMB_DONE:
-move w
-waitfor following you
-move w
-waitfor following you
-move w
-waitfor following you
-move s
-waitfor following you
-move s
-waitfor following you
-move w
-waitfor following you
-move s
-waitfor following you
-move w
-waitfor following you
-move w
-waitfor following you
-move w
-waitfor following you
-move w
-waitfor following you
-move w
-waitfor following you
-move w
-waitfor following you
-move go bri
-waitfor following you
-move s
-waitfor following you
-move se
-waitfor following you
-move sw
-waitfor following you
-move s
-waitfor following you
-move s
-waitfor following you
-move s
-waitfor following you
-move w
-waitfor following you
 move go door
 save CROSS_LETH_DIRGE_CHECK
 goto CROSS
@@ -7455,8 +7278,7 @@ I_HAVE_CARA:
 put tell caravan to follow
 waitfor you
 	match I_AT_DIRGE North Roads Caravansary
-	match I_AT_CROSS Northeast Wilds, Outside Northeast Gate
-	match I_CROSS_OUT_CARA The Crossing, Commerce Avenue
+	match I_AT_CROSS The Crossing, Commerce Avenue
 	match I_GO_FERRY_CARA The Crossing, Alfren's Ferry
 	match I_GO_FERRY_CARA1 Sparse grass, weeds and a few hardy shrubs
 	match I_GO_FERRY_CARA Southern Trade Route, Segoltha South Bank
@@ -8385,6 +8207,7 @@ put give cara
 waitfor driver
 put wear my feedbag
 wait
+goto I_CROSS_OUT
 
 goto I_AT_CROSS_F
 I_AT_CROSS_F_SHIFT:
@@ -9374,8 +9197,7 @@ F_I_HAVE_CARA:
 put tell caravan to follow
 waitfor you
 	match F_I_AT_DIRGE North Roads Caravansary
-	match F_I_AT_CROSS Northeast Wilds, Outside Northeast Gate
-	match F_I_CROSS_OUT The Crossing, Commerce Avenue
+	match F_I_AT_CROSS The Crossing, Commerce Avenue
 	match F_I_GO_FERRY_CARA The Crossing, Alfren's Ferry
 	match F_I_GO_FERRY_CARA1 Sparse grass, weeds and a few hardy shrubs
 	match F_I_GO_FERRY_CARA Southern Trade Route, Segoltha South Bank
@@ -11045,7 +10867,7 @@ DES_CHECK:
 	match %s North Road, Ferry
 	match %s North Roads Caravansary
 	match %s Southern Trade Route, Outside Leth Deriel
-	match %s Lairocott Brach, Entrance
+	match %s Guild outpost sits alongside the stony trail
 	match %s Valley, Village Gate
 	match %s Northeast Wilds, Outside Northeast Gate
 	match %s Deobar Bower Gate, Esouvar Deriel
@@ -11069,7 +10891,6 @@ DES_WAIT:
 	match TIP accept tip
 	match DES_CHECK YOU HAVE BEEN IDLE
 	match LISTEN you must LISTEN
-    match %s Your driver stops and looks around for a moment with a puzzled look on his face.
 	match %s having arrived at its destination.
 	match QUIT [You're
 	matchwait
@@ -16242,8 +16063,7 @@ waitfor you
 	match F_CLIMB_TRAIL_PAUSE Foothills, Stony Incline
 	match F_AT_ARTHE Valley, Village Gate
 	match F_ARTHE_OUT Arthe Dale, Cul-de-sac
-	match F_AT_CROSS Northeast Wilds, Outside Northeast Gate
-	match F_CROSS_OUT The Crossing, Commerce Avenue
+	match F_AT_CROSS The Crossing, Commerce Avenue
 	match F_WOLF_OUT Wolf Clan Home, Dirt Road
 	match F_TIGER_OUT Tiger Clan Home, Dirt Pathway
 	match F_TO_LETH_FERRY_CARA The Crossing, Alfren's Ferry
@@ -16400,81 +16220,8 @@ F_AT_CROSS:
 	echo
 	echo F_AT_CROSS:
 	echo
-put tell caravan follow
-waitfor you
-put rem my feedbag
-wait
-put give cara
-waitfor driver
-put wear my feedbag
-wait
-goto F_AT_CROSS_F
-F_AT_CROSS_F_SHIFT:
-
-F_AT_CROSS_F:
-	match F_NOT_CROSS obvious
-	match F_NOT_CROSS1 can't
-	match F_NOT_CROSS1 referring
-	match F_AT_CROSS2 The Crossing, Northeast Customs
-put go gate
-	match F_QUIT [You're
-	matchwait
-
-F_NOT_CROSS:
-waitfor following you
-put go gate
-waitfor following you
-F_NOT_CROSS1:
-put tell caravan lead to crossing
-waitfor you
-goto F_HIDE
-
-
-F_AT_CROSS2:
-waitfor following you
-move w
-waitfor following you
-move w
-waitfor following you
-move w
-waitfor following you
-move s
-waitfor following you
-move s
-waitfor following you
-move w
-waitfor following you
-move s
-waitfor following you
-move w
-waitfor following you
-move w
-waitfor following you
-move w
-waitfor following you
-move w
-waitfor following you
-move w
-waitfor following you
-move w
-waitfor following you
-move go bri
-waitfor following you
-move s
-waitfor following you
-move se
-waitfor following you
-move sw
-waitfor following you
-move s
-waitfor following you
-move s
-waitfor following you
-move s
-waitfor following you
-move w
-waitfor following you
 move go door
+save CROSS_LETH_DIRGE_CHECK
 goto F_CROSS
 
 F_CROSS_GATE:
@@ -20966,10 +20713,10 @@ put hide
 
 F_DES_CHECK:
 	match F_AT_DIRGE Dirge, Gateway Road
-	match F_AT_STONE Lairocott Brach, Entrance
+	match F_AT_STONE Guild outpost sits alongside the stony trail
 	match F_AT_LETH Alder Bower Gate
 	match F_AT_ARTHE Valley, Village Gate
-	match F_AT_CROSS Northeast Wilds, Outside Northeast Gate
+	match F_AT_CROSS The Crossing, Commerce Avenue
 	match F_TO_CROSS_FERRY1_CARA Sparse grass, weeds and a few hardy shrubs
 	match F_TO_CROSS_FERRY_CARA Southern Trade Route, Segoltha South Bank
 	match F_DES_WAIT obvious
