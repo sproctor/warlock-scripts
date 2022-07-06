@@ -1,6 +1,6 @@
 if not exists %instrument then setvariable instrument lyre
-if not exists %playlevel then setvariable playlevel 1
-if %playlevel < 1 then setVariable playlevel 1
+if not exists %playlevel then setvariable playlevel 2
+if %playlevel < 1 then setVariable playlevel 2
 goto START
 
 GET:
@@ -15,6 +15,7 @@ gosub set%playlevel
 DOPLAY:
 match GET Play on what
 match CHECKEXP You finish
+match TUNE tuning is off
 match HARDER You effortlessly begin
 match HARDER your skill in your craft
 match EASIER You fumble slightly as you begin
@@ -23,10 +24,8 @@ put play %diff
 matchwait
 
 CHECKEXP:
-match WAITEXP mind lock
-match DOPLAY state of mind
-put exp performance
-matchwait
+if components["exp Performance"] contains "mind lock" then goto WAITEXP
+else goto DOPLAY
 
 WAITEXP:
 echo Waiting for exp to absorb
@@ -36,6 +35,34 @@ goto CHECKEXP
 NOTFOUND:
 echo ERROR!!! No valid instrument.
 exit
+
+TUNE:
+put stop play
+match DOPLAY perfect tune
+match TUNESHARP slightly out of tune and flat
+match TUNESHARP very flat
+match TUNEFLAT slightly out of tune and sharp
+match TUNEFLAT very sharp
+put tune %instrument
+matchwait
+
+TUNESHARP:
+match DOPLAY perfect tune
+match TUNESHARP slightly out of tune and flat
+match TUNESHARP very flat
+match TUNEFLAT slightly out of tune and sharp
+match TUNEFLAT very sharp
+put tune %instrument sharp
+matchwait
+
+TUNEFLAT:
+match DOPLAY perfect tune
+match TUNESHARP slightly out of tune and flat
+match TUNESHARP very flat
+match TUNEFLAT slightly out of tune and sharp
+match TUNEFLAT very sharp
+put tune %instrument flat
+matchwait
 
 HARDER:
 	put stop play
