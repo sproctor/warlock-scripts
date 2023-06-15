@@ -1,0 +1,812 @@
+#Note: For Trader-specific settings see https://github.com/rpherbig/dr-scripts/wiki/Trader-Tutorials
+
+#############################################################
+########          HOMETOWN/HUNT SETTINGS            #########
+#############################################################
+
+hometown: Crossing
+
+#If you want, you can define a safe_room for every town you would use hometown with.
+safe_room: &safe
+  Crossing: 888
+  Shard: 2864
+  Hibarnhvidar: 14603
+  Ratha: 12383
+  Riverhaven: 310
+  Therenborough: 3183
+  Muspar'i: 225
+lockpick_room_id:
+  << : *safe
+engineering_room:
+  << : *safe
+outfitting_room:
+  << : *safe
+crossing_training_sorcery_room:
+  Crossing: 13102
+  Shard: 2864
+  Hibarnhvidar: 14603
+  Ratha: 4893
+  Riverhaven: 310
+  Therenborough: 3183
+  Muspar'i: 225
+
+box_hunt_minimum: 2
+
+hunting_info:
+- :zone:
+  - endrus_serpents
+  args:
+  - uptrain
+  :duration: 15
+  stop_on:
+  - Shield Usage
+  - Small Edged
+  - Targeted Magic
+
+favor_goal: 24
+favor_god: Kertigen
+#water_holder: chalice
+#use_favor_altars: true
+#warhorn: egg
+
+empty_hunting_room_messages:
+- "Is anyone in here?"
+
+#default_stance: 80 0 100
+combat_trainer_target_increment: 8
+combat_trainer_action_count: 16
+box_loot_limit: 4
+picking_pet_boxes_on_hand: 3
+health_threshold: 50
+priority_defense: Shield Usage
+
+training_manager_hunting_priority: true
+priority_skills_lower_limit: 0
+training_manager_priority_skills:
+  - Shield Usage
+
+training_manager_town_duration: 50
+
+dance_skill: Light Edged
+dance_threshold: 2
+weapon_training:
+    #Small Blunt: heavy book
+    Targeted Magic: scimitar
+    #Large Edged: war axe
+    #Crossbow: forester's crossbow
+    #Staves: walking cane
+    #Offhand Weapon: heavy book
+    Brawling: ''
+    Light Edged: scimitar
+
+# Enables starlight management
+# aura_frequency: 200
+
+training_abilities:
+  Analyze: 300
+  Hunt: 280
+  #Almanac: 150
+  Locks: 200
+  PercMana: 400
+
+###################################
+######   REGALIA SETTINGS    ######
+###################################
+
+# To function, Regalia needs two things - a regalia gearset (see below) and a cycle_armors_regalia list
+# The regalia gearset should be missing any armor you want regalia to replace -- my regalia gearset is missing all armor
+# Then cycle_armors_regalia should be added for each armor skill you want to train
+# Also useful is a regalia waggle if you want to use different mana/cambrinth settings.  See below.
+
+#cycle_armors_time: 305
+#default_armor_type: Brigandine
+
+#cycle_armors_regalia:
+#  - Brigandine
+#  - Light Armor
+#  - Chain Armor
+  #- Plate Armor # careful with plate.  Hard to dodge and retreat in it
+
+#############################################################
+########             GEAR SETTINGS                  #########
+#############################################################
+gear:
+# trader jewelry
+- :adjective: knee
+  :name: boots
+  :is_leather: false
+  :hinders_lockpicking: false
+  :is_worn: true
+  :skip_repair: true
+
+- :adjective: black
+  :name: doublet
+  :is_leather: false
+  :hinders_lockpicking: false
+  :is_worn: true
+  :skip_repair: true
+
+- :adjective: captain's
+  :name: coat
+  :is_leather: false
+  :hinders_lockpicking: false
+  :is_worn: true
+  :skip_repair: true
+
+# actual equipment
+- :adjective: visored
+  :name: coif
+  :is_leather: false
+  :hinders_lockpicking: true
+  :is_worn: true
+
+- :adjective: scale
+  :name: gauntlets
+  :is_leather: false
+  :hinders_lockpicking: true
+  :is_worn: true
+
+- :adjective: fine
+  :name: mail
+  :is_leather: false
+  :hinders_lockpicking: true
+  :is_worn: true
+
+- :adjective: oval
+  :name: shield
+  :is_leather: false
+  :hinders_lockpicking: true
+  :is_worn: true
+
+- :name: scimitar
+  :is_leather: false
+  :hinders_lockpicking: false
+  :is_worn: false
+  :wield: true
+
+gear_sets:
+  standard:
+  - visored coif
+  - oval shield
+  - scale gauntlets
+  - fine mail
+  swimming:
+  - oval shield
+  - fine mail
+  naked: []
+
+skinning:
+  skin: true
+  arrange_all: false
+  arrange_count: 3
+  tie_bundle: true
+
+#############################################################
+########          NON-COMBAT-SETTINGS               #########
+#############################################################
+
+saferoom_health_threshold: 7
+repair_timer: 186400
+repair_every: 6
+sell_loot_money_on_hand: 6789 copper
+sell_loot_bundle: true
+sell_loot_pouch: false
+gem_pouch_adjective: gem
+full_pouch_container: travel pack
+sale_pouches_container: travel pack
+spare_gem_pouch_container: shoulder pack
+
+
+#worn_instrument: cowbell
+
+listen: true
+dump_junk: true
+dump_item_count: 5
+
+sell_pouches_for_trading: false
+braid_item: grass
+hand_armor: gauntlets
+textbook: false
+darkbox_stop_on_wounded: true
+
+crossing_training:
+- Attunement
+#- Arcana
+- Locksmithing
+#- Trading
+- Appraisal
+#- Sorcery
+#- Outfitting
+#- Forging
+#- Engineering
+- Outdoorsmanship
+- Perception
+- First Aid
+#- Utility
+#- Scholarship
+- Performance
+
+appraisal_training:
+ - bundle
+ - pouches
+
+loot_specials:
+    - name: kyanite stones
+      bag: shoulder pack
+    - name: jadeite stones
+      bag: shoulder pack
+
+loot_subtractions:
+- rock
+- arrow
+- shard
+
+loot_additions:
+- title scroll
+- ball
+- pulzone
+- quadrello
+- lump
+- license
+- profile
+
+trade_contract_container: contract case
+caravan_coins_on_hand: 9999
+#yarn_quantity: 300
+#lumber_quantity: 40
+#caravan_interior: true # Only if you've purchased the Interior for your caravan (ASK MINISTER ABOUT INTERIOR - 750 PLAT)
+
+caravan_training_skills: #All supported skills and default cooldowns in seconds
+  Utility: 5 # Have these in crafting_training_spells
+  Augmentation: 5 # Have these in crafting_training_spells
+  Warding: 5 # Have these in crafting_training_spells
+  Performance: 120 # Zills
+  Appraisal: 8 # appraises zills, bundles, or pouches the same way as ;appraisal
+  Attunement: 100 # PERC MANAs while walking
+  First Aid: 450 # Either a compendium or a textbook, with the textbook: true
+#  Outfitting: 200 # need knitting needles and yarn_quantity
+#  Engineering: 200 # needs shaping tools and lumber_quantity
+  Outdoorsmanship: 15 # Collects rocks while being led or riding in a caravan
+  Locksmithing: 30 # uses ;lockbox if you have those settings, or pet boxes
+  Perception: 50 # Collects rocks while being led or riding in a caravan
+# Forging: 2400 # Will stop trading and do a forging work order in an appropriate town
+
+bescort_hide: false
+bescort_fare_handling: true
+
+#mining_tools:
+#- tapered shovel
+
+almanac_no_use_scripts:
+- combat-trainer
+- go2
+- sorcery
+- favor
+- forge
+- bescort
+- steal
+- astrology
+- clean-leather
+- clean-lumber
+- craft
+- scouting
+- athletics
+
+#############################################################
+#######               MAGIC SETTINGS                 ########
+#############################################################
+
+use_harness_when_arcana_locked: false
+dedicated_camb_use: spell
+train_with_spells: true
+use_research: false
+cambrinth: cambrinth armband
+prep_scaling_factor: 0.70
+cambrinth_cap: 5
+cambrinth_items:
+- name: cambrinth armband
+  cap: 32
+  stored: false
+
+#cambrinth_invoke_exact_amount: true
+
+#############################################################
+#######         CUSTOM SPELL DEFINITIONS             ########
+#############################################################
+
+### NOTHING IN THIS SECTION DOES ANYTHING WHATSOEVER.  THEY EXIST ONLY AS ANCHORS (See https://github.com/rpherbig/dr-scripts/wiki/YAML-Anchors)
+### I WILL CALL THEM LATER USING << : *finesse, FOR EXAMPLE, WHICH IS THE SAME AS
+### UNWRAPPING finesse_buff AND SHOVING EVERYTHING FROM Finesse: DOWNWARD INTO WHEREEVER I CALL IT.
+### DON'T DO THIS UNLESS YOU KNOW WHAT IT MEANS
+
+finesse_buffs: &finesse
+  Finesse:
+    abbrev: fin
+    mana: 1
+    recast: 5
+    cambrinth:
+    - 5
+#    - 15
+#    - 15
+
+crafting_buffs: &craft
+  Platinum Hands of Kertigen:
+    abbrev: phk
+    mana: 20
+    recast: 6
+    cambrinth:
+    - 20
+
+starlight_buffs: &starlight
+  Noumena:
+    abbrev: NOU
+    mana: 1
+    recast: 5
+    cambrinth:
+    - 5
+#    - 20
+#    - 20
+
+gathering_buffs: &gather
+   Membrach's Greed:
+    abbrev: meg
+    mana: 1
+    recast: 15
+    cambrinth:
+    - 3
+#    - 10
+#    - 10
+
+#sorcery_buffs: &sorcery  # this anchor pulls in everything from Glythtide's Gift down - used for buffs
+#  Glythtide's Gift: &cross_sorc # this anchor pulls in everything from abbrev down - used for sorcery training
+#    abbrev: gg
+#    mana: 15
+#    cambrinth:
+#    - 10
+#    recast: -1
+
+buffs: &buffs
+  Last Gift of Vithwok IV:
+    abbrev: lgv
+    mana: 1
+    recast: 2
+    cambrinth:
+    - 3
+#    - 15
+#    - 20
+  Trabe Chalice:
+    abbrev: trc
+    mana: 1
+    recast: -1
+    starlight_threshold: 0
+    cambrinth:
+    - 2
+#    - 27
+  Turmar Illumination:
+    abbrev: TURI
+    mana: 1
+    recast: -1
+    cambrinth:
+    - 2
+#    - 27
+#  Blur:
+#    abbrev: blur
+#    mana: 10
+#    recast: 2
+#    starlight_threshold: 1
+#    cambrinth:
+#    - 15
+#    - 15
+#    - 15
+  << : &starlight
+  << : &finesse
+
+### END CUSTOM SPELL DEFINITIONS ###
+
+#############################################################
+#######    COMBAT-TRAINER AND WAGGLE SPELL LISTS     ########
+#############################################################
+
+### combat-trainer uses buff_spells, offensive_spells and combat_spell_training to buff and fight
+### many other scripts use 'waggle sets' for buff checks on script startup
+### I call many spells defined up above here.
+### SEE https://github.com/rpherbig/dr-scripts/wiki/Waggle-Sets
+
+ #combat-trainer spells
+offensive_spells:
+#- skill: Debilitation
+#  name: Fluoresce
+#  abbrev: flu
+#  mana: 15
+#  harmless: true
+#  min_threshold: 3
+#  recast_every: 80
+#  starlight_threshold: 1
+#  cast_only_to_train: true
+#  cambrinth:
+#  - 5
+#  - 15
+
+#- skill: Targeted Magic
+#  name: Arbiter's Stylus
+#  cast_only_to_train: false
+#  abbrev: ars
+#  cyclic: true
+#  starlight_threshold: 2
+#  mana: 11
+#
+#- skill: Targeted Magic
+#  name: Starcrash
+#  abbrev: star
+#  mana: 37
+#  starlight_threshold: 3
+#  min_threshold: 3
+#  cast_only_to_train: false
+
+- skill: Targeted Magic
+  name: Crystal Dart
+  abbrev: crd
+  starlight_threshold: 1
+  mana: 2
+
+#- skill: Targeted Magic
+#  name: Strange Arrow
+#  abbrev: stra
+#  mana: 24
+
+# This is what combat-trainer keeps up, buff-wise
+# I am calling everything in the &buffs and &sorcery section up above
+buff_spells: &buff_spells
+  << : *buffs
+#  << : *sorcery
+
+# other spell sets and waggles
+# every waggle can be called manually by using ;buff <name of waggle>, eg. ;buff shape
+waggle_sets:
+  default:
+    << : *buffs
+    << : *starlight
+  prehunt_buffs: &prehunt_buffs
+    #force a noumena cast even if one's lingering around from crafting_training or whatever
+    Noumena:
+      abbrev: NOU
+      mana: 5
+      recast: 8
+      cambrinth:
+      - 5
+#      - 17
+#      - 17
+    Last Gift of Vithwok IV:
+      abbrev: lgv
+      mana: 5
+      recast: 2
+      cambrinth:
+      - 5
+#      - 17
+#      - 17
+    << : &finesse
+  prebuff:
+    << : *prehunt_buffs
+#  shape:
+#    << : *craft
+#  tinker:
+#    << : *craft
+#  sew:
+#    << : *craft
+#  forge:
+#    << : *craft
+  sell-pouches:
+    << : *finesse
+  trade:
+    Finesse:
+      abbrev: fin
+      mana: 4
+      recast: -1
+      prep_time: 15
+      cambrinth:
+      - 5
+    Noumena:
+      mana: 1
+      recast: 2
+      prep_time: 18
+      cambrinth:
+      - 5
+
+  pick:
+    << : *finesse
+    << : *starlight
+  mining:
+    << : *buffs
+    << : *gather
+  forestry:
+    << : *gather
+    << : *starlight
+  starlight:
+    << : *starlight
+  # This waggle is used in combat-trainer for traders using cycle_armors_regalia.
+  regalia:
+    Regalia:
+      abbrev: REGAL
+      mana: 20
+      cast: cast brigandine all
+
+# used when training Sorcery in crossing-training.  Checks safe-room after each cast
+#crossing_training_sorcery:
+#  << : *cross_sorc
+
+# used when training Util/Aug/Ward in crossing-training.
+training_spells:
+  Utility:
+    abbrev: NOUM
+  Augmentation:
+    abbrev: FIN
+#  Warding:
+#    abbrev: NON
+
+# these are basic, no harness/cambrinth spells that are prepared in between RTs when braiding/collecting rocks/crafting
+crafting_training_spells:
+  Utility:
+    abbrev: NOU
+    symbiosis: true
+    mana: 5
+  Augmentation:
+    abbrev: MEG
+    symbiosis: true
+    mana: 1
+#  Warding:
+#    abbrev: NON
+#    symbiosis: true
+#    mana: 20
+
+#################################
+#####  CRAFTING/GATHERING   #####
+#################################
+
+mining_skip_populated: true
+mining_buddy_mine_every_room: false
+
+mining_buddy_vein_list:
+# common
+#- Covellite
+#- Lead
+#- Silver
+- Gold
+# alchemy
+- Electrum
+- Kadepa
+- Muracite
+- Niello
+- Niniam
+- Orichalcum
+# forging
+- Aldamdin
+- Animite
+- Audrualm
+- Damite
+- Darkstone
+- Glaes
+- Haledroth
+- Haralun
+- Icesteel
+- Indurium
+- Kertig
+- Kiralan
+- Lumium
+- Platinum
+- Quelium
+- Silversteel
+- Telothian
+- Tyrium
+- Vardite
+- Yellow gold
+# engineering
+# common
+#- Obsidian
+#- Jade
+# rare
+- Anjisis
+- Belzune
+- Blackwater jet
+- Diamondique
+- Felstone
+- Fulginode
+- Senci
+- Xenomite
+mining_implement: tapered shovel
+lumber_implement: war axe
+mine_use_packet: true
+lumber_use_packet: true
+
+mines_to_mine:
+- abandoned_tunnels
+
+forests_to_chop:
+- road_to_shard
+- darkling_woods
+
+lumber_buddy_chop_every_room: false
+lumber_skip_populated: true
+
+lumber_buddy_tree_list:
+# common
+#- Ash #shortbows
+#- Bamboo # martial
+#- Durian # martial
+#- Apple
+#- Birch
+#- Cedar
+#- Elm
+#- Oak
+#- Walnut
+#- Moabi
+#- Maple
+#- Mahogany # martial
+#- Mangrove #martial, shortbows
+#- Sandalwood #Composite
+# rare
+- Adder # Alterations
+- Aformosia # Alterations
+- Albarco # shortbow
+- Alerce # Alterations
+- Avodire # composite
+- Azurelle # longbows
+- Bloodwood # longbows, shortbows
+#- Bocote # martial
+#- Cherry # longbows
+- Copperwood # longbows
+- Crabwood # martial
+- Darkspine	# martial
+- Diamondwood	# martial
+- Dragonwood # alterations
+#- Ebony # Martial
+- E'erdream # ???
+- Felwood # martial, shortbows, composite
+- Finivire # all bows
+- Glitvire # ???
+- Gloomwood # ???
+- Goldwood # longbows, shortbows
+- Greenheart # martial
+#- Hickory # martial, composite I have 100+
+- Ilomba # Alterations
+- Iroko # Alterations
+- Ironwood #martial
+#- Kapok # alterations
+- Lelori #Composite
+- Macawood #alterations
+- Mistwood # longbow, shortbow
+#- Osage	# longbows
+- Ramin # longbows
+#- Redwood	# alterations
+- Rockwood # martial
+#- Rosewood # longbows
+- Shadowbark # ???
+- Silverwood # shortbows, composite bows
+- Smokewood	# alterations
+- Tamarak	# alterations
+- Tamboti	# ???
+#- Yew	# Longbows
+
+crafting_container: travel pack
+workorder_diff:
+  tailoring: challenging
+  shaping: challenging
+
+#use_own_ingot_type:
+#deed_own_ingot: true
+mark_crafted_goods: false
+
+train_workorders:
+- Blacksmithing
+- Shaping
+- Tailoring
+
+#Only traders use this. What disciplines will you run when training Trading via workorders
+work_order_disciplines:
+- Blacksmithing
+- Shaping
+- Tailoring
+
+workorder_max_items: 4
+
+#Overrides normal recipe search and looks for a specific set of recipes
+#workorder_recipes:
+#  blacksmithing:
+#    - a sturdy metal drawknife
+
+forging_tools:
+- bellows
+- stirring rod
+- curved tongs
+- forging hammer
+- tapered shovel
+
+shaping_tools:
+- thin rasp
+- carving knife
+- drawknife
+- rough shaper
+- curved saw
+
+carving_tools:
+- thin rasp
+- rifflers
+- chisels
+
+tinkering_tools:
+- curved saw
+- textured clamps
+- tinker's tools
+- tapered shovel
+- carving knife
+- curved pliers
+
+outfitting_tools:
+- knitting needle
+- sewing needle
+- slickstone
+- scissors
+- yardstick
+- awl
+
+engineering_belt:
+  name: carpenter belt
+  items:
+    - rough shaper
+    - thin rasp
+    - carving knife
+    - drawknife
+    - curved saw
+
+#################################
+#####      LOCKSMITHING     #####
+#################################
+
+stop_pick_on_mindlock: false
+picking_box_source: travel pack
+pick.too_hard_container: travel pack
+use_lockpick_ring: true
+lockpick_type: stout
+#harvest_traps: false
+skip_lockpick_ring_refill: false
+lockpick_container: ring
+# picking_pet_box_source: watersilk bag
+# always_pick_blind: false
+storage_containers:
+- travel pack
+#- inventor satchel
+
+#restock_shop:
+#  inside_room: 14614
+#  outside_room: 7911
+#  entrance_noun: door
+#  items:
+#  - noun: mask
+#    full_name: quilted heavy silk mask
+#    price: 90007
+#    surface: in cabinet
+#    recipe: a quilted cloth mask
+#    material: heavy silk
+#  - noun: hood
+#    full_name: quilted heavy silk hood
+#    price: 160000
+#    surface: in cabinet
+#    recipe: a quilted cloth hood
+#    material: heavy silk
+#  - noun: pants
+#    full_name: quilted heavy silk pants
+#    price: 190000
+#    surface: in cabinet
+#    recipe: some quilted cloth pants
+#    material: heavy silk
+#  - noun: shirt
+#    full_name: quilted heavy silk shirt
+#    price: 340000
+#    surface: in cabinet
+#    recipe: a quilted cloth shirt
+#    material: heavy silk
+#  - noun: gloves
+#    full_name: quilted heavy silk gloves
+#    price: 70000
+#    surface: in cabinet
+#    recipe: some quilted cloth gloves
+#    material: heavy silk
