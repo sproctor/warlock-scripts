@@ -4,9 +4,7 @@ exit
 
 START:
 CHECKEXP:
-	getcomponent outdoorsmanship exp outdoorsmanship
-	getcomponent perception exp perception
-	if %outdoorsmanship contains "mind lock" && %perception contains "mind lock" then goto WAITEXP
+	if components["exp outdoorsmanship"] contains "mind lock" && componentsp["exp perception"] contains "mind lock" then goto WAITEXP
 	goto DOCOLLECT
 DOCOLLECT_PAUSE:
 	pause

@@ -1,7 +1,19 @@
-var crd_mana 3
-debuglevel 10
+debuglevel 0
 
+var crd_mana 2
+echo 1
+if not exists %helm then setvariable helm coif
+echo 2
+if not exists %gloves then setvariable gloves gauntlets
+echo 3
+if not exists %weapon then setvariable weapon scimitar
+echo 4
 if not exists %guild then gosub check_guild
+echo 5
+
+if not (properties["right"] contains %weapon) then gosub wield
+echo 6
+
 if_1 goto start
 echo Usage: hunt <critter1> <critter2> ... <critterN>
 exit
@@ -36,3 +48,46 @@ return
 unrecognized_guild:
 echo This script does not support your guild
 exit
+
+wield:
+if not (properties["right"] contains "Empty") then put stow right
+if not (properties["left"] contains "Empty") then put stow left
+match NOWEAPON Wield what?
+match WEAPON You draw out
+put wield %weapon
+matchwait
+WEAPON: return
+NOWEAPON:
+echo Could not find your weapon. Make sure to set the "weapon" variable appropriately.
+exit
+
+helm:
+match HELMDONE But that is already
+match NOHELM What were you referring to?
+match GOTHELM You get a
+put get my %helm
+matchwait
+GOTHELM:
+match HELMDONE You put a
+put wear %helm
+matchwait
+HELMDONE: return
+NOHELM:
+echo Could not find your helm. Make sure to set the "helm" variable appropriately.
+exit
+
+gloves:
+match GLOVESDONE But that is already
+match NOGLOVES What were you referring to?
+match GOTGLOVES You get a
+put get my %gloves
+matchwait
+GOTGLOVES:
+match GLOVESDONE You put a
+put wear %gloves
+matchwait
+GLOVESDONE: return
+NOGLOVES:
+echo Could not find your gloves. Make sure to set the "gloves" variable appropriately.
+exit
+

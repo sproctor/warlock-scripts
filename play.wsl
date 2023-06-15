@@ -1,5 +1,6 @@
-if not exists %instrument then setvariable instrument lyre
+if not exists %instrument then setvariable instrument zills
 if not exists %playlevel then setvariable playlevel 2
+if not exists %diff then setvariable diff rudiments off-key
 if %playlevel < 1 then setVariable playlevel 2
 goto START
 
