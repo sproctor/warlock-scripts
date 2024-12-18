@@ -1071,6 +1071,13 @@ echo
 echo  Destination:  The Teahouse!
 goto CheckStart
 
+SetDestinationTheren:
+SetDestinationTherenborough:
+setvariable D Theren
+echo
+echo  Destination:  Therenborough!
+goto CheckStart
+
 SetDestinationCloth:
 SetDestinationClothes:
 SetDestinationClothing:
